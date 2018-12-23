@@ -1,0 +1,31 @@
+{
+  "name": "discord-pick-bot",
+  "version": "1.0.0",
+  "description": "Discord Bot ",
+  "main": "init.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndyIsCool5463/discord-pick-bot.git"
+  },
+  "author": "AndyIsCool5463",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndyIsCool5463/discord-pick-bot/issues"
+  },
+  "homepage": "https://github.com/AndyIsCool5463/discord-pick-bot#readme",
+  "dependencies": {
+    "better-sqlite-pool": "^0.2.0",
+    "discord.js": "^11.4.2",
+    "dotenv": "^6.2.0",
+    "enmap": "^4.5.0",
+    "node-gyp": "^3.8.0"
+  },
+  "devDependencies": {
+    "chalk": "^2.4.1",
+    "fs-extra": "^7.0.1"
+  }
+}
