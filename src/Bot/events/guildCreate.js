@@ -6,7 +6,13 @@ module.exports = (Bot, guild) => {
     welcomeMessageEnabled: "true"
   };
   console.log(guild);
-  fs.appendFile(
+  async function f() {
+    await fs.unlink(`./src/Bot/serverConfig/${message.guild.id}.json`, e => {
+      console.log(e);
+    });
+  }
+  f();
+  fs.appendFileSync(
     `./src/Bot/serverConfig/${guild.id}.json`,
     JSON.stringify(conf),
     function(err) {

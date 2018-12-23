@@ -4,7 +4,7 @@ module.exports = (Bot, message, member) => {
   if (message.author.bot) return;
   if (message.channel === "dm") return;
   const config = require(`../serverConfig/${message.guild.id}.json`);
-  const prefix = "$";
+  const prefix = config.prefix;
   // Ignore messages not starting with the prefix (in config.json)
   if (message.content.indexOf(prefix) !== 0) return;
 
