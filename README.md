@@ -34,7 +34,7 @@ The reason I started this project is that there is not any bot out there with al
 
 <br/>
 
-<a href="https://discord.gg/DshC5wd"><img src="https://cdn.discordapp.com/avatars/201825529333153792/3080cba771fae176926c91122dcdd6c1.png"></a>
+<a href="https://discord.gg/DshC5wd"><img src="https://images-ext-2.discordapp.net/external/jiY3uiiq8K2v1cjzFZ3uXQK-sr0ppTtpCvQQ_CAoU58/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/525901565018767364/7dc87eeab21c95936e6f3d799c8c5e5b.png"></a>
 
 ## Disclaimer ⚠️
 
