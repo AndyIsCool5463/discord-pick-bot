@@ -9,6 +9,9 @@
     "build": "next build",
     "start": "nodemon start.js"
   },
+  "engines": {
+    "node": "9.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AndyIsCool5463/discord-pick-bot.git"
