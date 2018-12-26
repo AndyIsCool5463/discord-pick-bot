@@ -1,0 +1,27 @@
+<html>
+  <link rel="stylesheet" type="text/css" href="/css/dashboardMain.css" />
+  <%- include("./EJScomp/navDash", {user: data}); %>
+  <header><% include("./EJScomp/head", {user: data}); %></header>
+  <h1 id="welcomeMsg"></h1>
+  <script>
+    var timeGreet = function() {
+      let f = document.getElementById("welcomeMsg");
+      var today = new Date();
+      var now = today.getHours();
+      var message;
+
+      if (now < 12) {
+        message = "Good Morning";
+      } else if (now < 18) {
+        message = "Good Afternoon";
+      } else {
+        message = "Good Evening";
+      }
+      var xd = today.toLocaleTimeString();
+      var day = today.toLocaleDateString();
+      var timezone = today.getTimezoneOffset();
+      return (f.innerHTML = `${message}, <%- data.username %>`);
+    };
+    timeGreet();
+  </script>
+</html>

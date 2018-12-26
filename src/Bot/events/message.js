@@ -7,7 +7,9 @@ module.exports = (Bot, message, member) => {
   const prefix = config.prefix;
   // Ignore messages not starting with the prefix (in config.json)
   if (message.content.indexOf(prefix) !== 0) return;
-
+  if (message.isMentioned(Bot.user)) {
+    message.reply(`Default prefix for this guild is: \`${prefix}\`. `);
+  }
   // Our standard argument/command name definition.
   const args = message.content
     .slice(prefix.length)

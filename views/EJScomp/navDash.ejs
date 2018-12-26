@@ -1,0 +1,58 @@
+<!-- views/partials/header.ejs -->
+<nav class="navbar navbar-default" role="navigation">
+  <link rel="stylesheet" type="text/css" href="/css/dashboardHead.css" />
+  <script
+    defer
+    src="https://use.fontawesome.com/releases/v5.6.3/js/all.js"
+    integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1"
+    crossorigin="anonymous"
+  ></script>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#" id="leftTitle">
+        <span class="glyphicon glyphicon glyphicon-tree-deciduous"></span> Pick
+        Bot Dashboard <i class="fab fa-discord"></i>
+      </a>
+      <ul class="nav navbar-nav">
+        <li>
+          <button class="user-menu" onclick="myFunction()">
+            <i class="fas fa-users-cog" id="userMenuIcon"></i>
+          </button>
+          <div id="userDrop" class="dropdown-content">
+            <a href="#">Account Settings</a> <a href="#">Settings</a>
+            <a href="/logout" id="logout"
+              >Logout <i class="fas fa-sign-out-alt"></i>
+            </a>
+          </div>
+        </li>
+        <li>
+          <a href="/about">Updates <i class="fas fa-exclamation-circle"></i></a>
+        </li>
+        <li>
+          <a href="/">Home <i class="fas fa-home"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>
+  /* When the user clicks on the button, 
+    toggle between hiding and showing the dropdown content */
+  function myFunction() {
+    document.getElementById("userDrop").classList.toggle("show");
+  }
+
+  // Close the dropdown if the user clicks outside of it
+  window.onclick = function(event) {
+    if (!event.target.matches(".user-menu")) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains("show")) {
+          openDropdown.classList.remove("show");
+        }
+      }
+    }
+  };
+</script>

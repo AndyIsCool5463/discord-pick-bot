@@ -4,13 +4,13 @@ const Discord = require("discord.js");
 const colors = require("chalk");
 const Bot = new Discord.Client();
 const initdb = require("./functions/initalizeDatabases.js");
+const initServer = require("../Dashboard/server");
 Bot.login(process.env.TOKEN); // log bot in
 
 module.exports = async () => {
   // Event Handler
 
   await initdb(Bot);
-
   await fs.readdir("./src/Bot/events/", (err, files) => {
     if (err) return console.error(err);
     files.forEach(file => {
@@ -41,4 +41,5 @@ module.exports = async () => {
     console.log(colors.yellow("Loaded Commands"));
   });
   // Initalize Databases..
+  initServer(Bot);
 };

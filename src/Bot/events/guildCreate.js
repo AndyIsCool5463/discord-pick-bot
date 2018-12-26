@@ -3,6 +3,7 @@ module.exports = (Bot, guild) => {
   const conf = {
     serverID: guild.id,
     prefix: "$",
+    owner: guild.ownerID,
     welcomeMessageEnabled: "true"
   };
   console.log(guild);
