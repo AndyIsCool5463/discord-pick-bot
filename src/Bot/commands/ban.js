@@ -1,8 +1,7 @@
 const Discord = require("discord.js");
 exports.run = async (Bot, message, args) => {
-    if(!args[0]) return message.channel.send("Supply a user to ban.");
-    const user = args[0];
-    
+  if (!args[0]) return message.channel.send("Supply a user to ban.");
+  const user = args[0];
 };
 exports.help = {
   name: "ban",
@@ -13,5 +12,5 @@ exports.help = {
   alias: "None"
 };
 module.exports.settings = {
-  disabled: false
+  disabled: true
 };

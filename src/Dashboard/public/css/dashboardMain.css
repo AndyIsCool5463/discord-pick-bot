@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat|Staatliches|Thasadith");
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Staatliches|Thasadith|Open+Sans");
 
 #welcomeMsg {
   font-family: Montserrat;
@@ -7,4 +7,89 @@
   color: white;
   background: #23272a;
   padding-bottom: 10px, 100%, 400px, 100%;
+}
+.headers {
+  color: white;
+  font-family: Montserrat;
+  text-align: center;
+  background: #23272a;
+}
+.descriptions {
+  color: white;
+  font-family: Open Sans, sans-serif;
+  text-align: center;
+}
+html {
+  background: #23272a;
+}
+.changeServer {
+  height: 50px;
+  background: #27ae60;
+  border: none;
+  margin: -20px -50px;
+  margin-top: 40px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  transition: 800ms ease all;
+}
+.changeServer:hover {
+  background: white;
+  cursor: pointer;
+}
+.serverdrop {
+  position: relative;
+  display: inline-block;
+}
+/* Dropdown Content (Hidden by Default) */
+.serverdrop-content {
+  display: none;
+  /* position: absolute; */
+  position: relative;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.serverdrop-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.serverdrop-content a:hover {
+  background-color: #ddd;
+}
+.show {
+  display: block;
+}
+img {
+  margin: 10px auto 20px;
+  display: block;
+  padding: 20px;
+}
+.buttons {
+  display: none;
+}
+.buttons > span > a {
+  color: white;
+  padding: 20px;
+  background: red;
+  transition: 800ms ease all;
+}
+.buttons > span > a:hover {
+  color: black;
+  background: white;
+}
+
+.buttons > span {
+  position: relative;
+  top: 0;
+  padding-top: 20px;
+  right: -38%;
 }

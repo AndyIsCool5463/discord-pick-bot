@@ -1,0 +1,66 @@
+html {
+  background: #23272a;
+}
+.title {
+  font-family: Montserrat, sans-serif;
+  color: white;
+  padding: 150px;
+  padding-bottom: 5px;
+  text-align: center;
+  font-size: 40px;
+}
+.desc {
+  color: white;
+  text-align: center;
+  font-family: Montserrat, sans-serif;
+}
+
+.buttons > span > a {
+  color: white;
+  padding: 20px;
+  background: red;
+  transition: 800ms ease all;
+}
+.buttons > span > a:hover {
+  color: black;
+  background: white;
+}
+.buttons {
+  margin-top: 50px;
+}
+.buttons > span {
+  position: relative;
+  top: 0;
+  padding-top: 20px;
+  right: -33%;
+}
+.info > p {
+  color: white;
+  padding: 10px;
+  font-family: Montserrat, sans-serif;
+  max-width: 2000px;
+  text-align: center;
+}
+table {
+  margin-right: auto;
+  margin-left: auto;
+}
+th,
+td {
+  border: 1px solid white;
+  padding: 20px;
+  color: white;
+  font-family: Montserrat;
+  text-align: center;
+}
+tr {
+  margin: 20px;
+}
+td {
+  margin: 200px;
+}
+.CategoryHead {
+  color: white;
+  font-family: Montserrat;
+  text-align: center;
+}

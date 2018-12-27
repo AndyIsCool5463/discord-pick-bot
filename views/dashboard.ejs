@@ -1,9 +1,85 @@
 <html>
+  <script src="/socket.io/socket.io.js"></script>
+
   <link rel="stylesheet" type="text/css" href="/css/dashboardMain.css" />
   <%- include("./EJScomp/navDash", {user: data}); %>
   <header><% include("./EJScomp/head", {user: data}); %></header>
   <h1 id="welcomeMsg"></h1>
+  <h1 class="headers">Navagation</h1>
+  <h3 class="descriptions" id="selectServerDesc">
+    Select the server you want to modify.
+  </h3>
+  <button class="changeServer" id="btnSelect" onclick="serverDrop()">
+    Select.
+  </button>
+  <img src="" class="img" id="serverimg" width="64" height="64" />
+  <div id="serverdrop" class="serverdrop-content">
+    <% guilds.map(e => { %>
+    <a onclick="chosen(this.innerHTML)"><%= e.name %></a> <% })%>
+  </div>
+  <div class="buttons" id="divbtn">
+    <span>
+      <a id="commands" href="">Commands</a>
+      <a id="botsettings" href="">Bot Settings</a>
+      <a id="ll" href="">Lorem Lipsum</a>
+    </span>
+  </div>
   <script>
+    function serverDrop() {
+      document.getElementById("serverdrop").classList.toggle("show");
+    }
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches(".changeServer")) {
+        var dropdowns = document.getElementsByClassName("serverdrop-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains("show")) {
+            openDropdown.classList.remove("show");
+          }
+        }
+      }
+    };
+  </script>
+  <script>
+    function chosen(name) {
+      var f = document.getElementById("btnSelect");
+      var g = document.getElementById("selectServerDesc");
+      var img = document.getElementById("serverimg");
+      var socket = io.connect("http://localhost:8080");
+      socket.emit("GETIDGUILD", {
+        name: name
+      });
+      socket.on("RESPONSEIDGUILD", data => {
+        console.log(data);
+        response = data;
+        img.src = `https://cdn.discordapp.com/icons/${data.id}/${
+          data.icon
+        }.png?size=2048`;
+        // var r = <%-
+        // guilds
+        //   .filter(g => g.name == )
+        //   .map(g => {
+        //     return g.id;
+        //   }); %>
+        //  console.log(r);
+        f.innerHTML = "Chosen.";
+        g.innerHTML = `You have chosen, <b>${name}</b>.`;
+        document.getElementById("divbtn").classList.add("show");
+        var commands = document.getElementById("commands");
+        var botsettingsHref = document.getElementById("botsettings");
+        var lipsum = document.getElementById("ll");
+        commands.href = `/dashboard/edit/<%- data.id %>/${data.id}/commands`;
+        botsettingsHref.href = `/dashboard/edit/<%- data.id %>/${
+          data.id
+        }/settings`;
+        lipsum.href = `/dashboard/edit/<%- data.id %>/${data.id}/lipsum`;
+      });
+    }
+  </script>
+  <script>
+    var myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     var timeGreet = function() {
       let f = document.getElementById("welcomeMsg");
       var today = new Date();
@@ -24,4 +100,5 @@
     };
     timeGreet();
   </script>
+  <script></script>
 </html>

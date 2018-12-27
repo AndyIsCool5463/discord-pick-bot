@@ -1,0 +1,64 @@
+<html>
+  <link rel="stylesheet" type="text/css" href="/css/dashboardCommands.css" />
+  <%- include("./EJScomp/navDash", {user: user}); %>
+  <div class="head">
+    <h1 class="title">
+      Bot Commands for,
+      <span><small id="guildNameSmall"><%= guild.name %></small></span>
+    </h1>
+    <h3 class="desc">Edit the bot settings here.</h3>
+    <div class="buttons" id="divbtn">
+      <span>
+        <a id="list" href="#list">Commands List</a>
+        <a id="createCommands" href="">Make / Delete Commands</a>
+        <a id="edit" href="">Edit Commands</a>
+      </span>
+    </div>
+    <div class="info">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+        vestibulum convallis mauris, eget malesuada lectus ornare quis. Class
+        aptent taciti sociosqu ad litora torquent per conubia nostra, per
+        inceptos himenaeos. Sed eu erat auctor mauris aliquet imperdiet.
+        Maecenas diam dolor, fermentum vehicula tincidunt nec, rhoncus bibendum
+        lacus. Nunc eu nisl non lacus dictum mollis. Sed consectetur egestas
+        justo et facilisis. Maecenas commodo dui id nibh dictum, eu interdum
+        tortor ullamcorper. Pellentesque facilisis ligula dui, ut rhoncus ligula
+        semper vel. Donec lobortis orci augue, tincidunt euismod turpis
+        tristique non. Phasellus tristique maximus venenatis. In ac dui ac lacus
+        convallis volutpat. Morbi et turpis tellus. Pellentesque sit amet purus
+        sodales, finibus lacus non, efficitur ante. Nam ut dapibus nisi. Nullam
+        facilisis dui lacus, vitae scelerisque purus vestibulum non. Fusce
+        malesuada eros sed ante dignissim dictum.
+      </p>
+    </div>
+    <div id="list">
+      <h1 class="CategoryHead">Commands</h1>
+      <h4 class="desc">
+        In total you have <b><%- Bot.commands.size %></b> commands.
+      </h4>
+      <table id="commandsTable">
+        <tr>
+          <td>Name</td>
+          <td>Alias</td>
+          <td>Description</td>
+          <td>Useage</td>
+          <td>Category</td>
+          <td>Permission Needed</td>
+          <td>Disabled</td>
+        </tr>
+        <% Bot.commands.forEach(c => { %>
+        <tr>
+          <td><%= c.help.name %></td>
+          <td><%= c.help.alias %></td>
+          <td><%= c.help.description %></td>
+          <td><%= c.help.usage %></td>
+          <td><%= c.help.category %></td>
+          <td><%= c.help.permission %></td>
+          <td><%= c.settings.disabled %></td>
+        </tr>
+        <% }) %>
+      </table>
+    </div>
+  </div>
+</html>
