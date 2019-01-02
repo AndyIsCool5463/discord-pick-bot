@@ -1,4 +1,5 @@
 <html>
+  <script src="/socket.io/socket.io.js"></script>
   <link rel="stylesheet" type="text/css" href="/css/dashboardCommands.css" />
   <%- include("./EJScomp/navDash", {user: user}); %>
   <div class="head">
@@ -10,7 +11,7 @@
     <div class="buttons" id="divbtn">
       <span>
         <a id="list" href="#list">Commands List</a>
-        <a id="createCommands" href="">Make / Delete Commands</a>
+        <a id="createCommands" href="#maker">Make / Delete Commands</a>
         <a id="edit" href="">Edit Commands</a>
       </span>
     </div>
@@ -60,5 +61,15 @@
         <% }) %>
       </table>
     </div>
+    <div>
+      <h1 class="CategoryHead">Custom Commands for: <%= guild.name %></h1>
+    </div>
+    <div id="maker">
+      <form id="creater" post="">
+        <input name="Command Name" type="text" id="ff" />
+        <button type="submit" value="f">Add Command.</button>
+      </form>
+    </div>
   </div>
 </html>
+<script src="/js/dashboardCommands.js"></script>

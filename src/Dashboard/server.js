@@ -88,6 +88,9 @@ module.exports = async Bot => {
       var f = Bot.guilds.find("name", data.name);
       io.emit("RESPONSEIDGUILD", f);
     });
+    socket.on("commandCreated", d => {
+      console.log(d);
+    });
   });
 
   app.get("/dashboard/edit/:userID/:serverID/:editing", checkAuth, function(

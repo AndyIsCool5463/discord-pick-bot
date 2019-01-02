@@ -1,7 +1,33 @@
 const Discord = require("discord.js");
+const randomHex = require("../functions/randomHex.js");
 exports.run = async (Bot, message, args) => {
-  if (!args[0]) return message.channel.send("Supply a user to ban.");
-  const user = args[0];
+  const specifiedUser = message.mentions.users.first();
+  var string = args.slice(1).join(" ");
+  console.log(string);
+  if (!string) {
+    string = "No Reason.";
+  }
+  if (!specifiedUser) return message.reply("Mention a user to ban!");
+  if (specifiedUser.bannable === true) {
+    const banningMsg = message.channel.send(
+      `Banning \` ${specifiedUser.username} \` `
+    );
+    const embed = await new Discord.RichEmbed()
+      .setAuthor(`${specifiedUser.username}#${specifiedUser.discriminator}`)
+      .setColor(randomHex())
+      .setThumbnail(specifiedUser.displayAvatarURL)
+      .addField("Banned by:", message.author.username)
+      .addField("Ban Reason:", string)
+      .addField("Guild:", message.guild.name)
+      .setTimestamp(new Date())
+      .setFooter("F for respects.");
+    await message.channel.send(embed);
+    specifiedUser.ban();
+    banningMsg.delete();
+    specifiedUser.ban();
+  } else {
+    return message.reply("You may not ban that person.");
+  }
 };
 exports.help = {
   name: "ban",
@@ -12,5 +38,5 @@ exports.help = {
   alias: "None"
 };
 module.exports.settings = {
-  disabled: true
+  disabled: false
 };
