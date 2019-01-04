@@ -21,7 +21,7 @@
     <span>
       <a id="commands" href="">Commands</a>
       <a id="botsettings" href="">Bot Settings</a>
-      <a id="ll" href="">Lorem Lipsum</a>
+      <a id="ll" href="">Management</a>
     </span>
   </div>
   <script>
@@ -47,10 +47,10 @@
       var f = document.getElementById("btnSelect");
       var g = document.getElementById("selectServerDesc");
       var img = document.getElementById("serverimg");
-      var socket = io.connect("http://localhost:8080");
+      var socket = io.connect("http://localhost:80");
       socket.emit("GETIDGUILD", {
         name: name
-      }); 
+      });
       socket.on("RESPONSEIDGUILD", data => {
         console.log(data);
         response = data;
@@ -74,7 +74,7 @@
         botsettingsHref.href = `/dashboard/edit/<%- data.id %>/${
           data.id
         }/settings`;
-        lipsum.href = `/dashboard/edit/<%- data.id %>/${data.id}/lipsum`;
+        lipsum.href = `/dashboard/edit/<%- data.id %>/${data.id}/manage`;
       });
     }
   </script>

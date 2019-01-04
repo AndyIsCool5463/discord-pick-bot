@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+* {
+  font-family: Montserrat, sans-serif;
+}
+html {
+  background: #23272a;
+}
+.head {
+  text-align: center;
+  color: white;
+}
+.desc {
+  color: white;
+  text-align: center;
+  font-size: 16px;
+}
+.Pnav {
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+.buttons {
+  text-align: center;
+}
+.buttons > span > a {
+  padding: 20px;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  /* position: absolute; */
+  position: relative;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+.show {
+  display: block;
+}
+.menu {
+  color: white;
+}
+.menu > li {
+}

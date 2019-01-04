@@ -15,7 +15,7 @@ module.exports = async Bot => {
     /* 'connections', (it is currently broken) */ "guilds",
     "guilds.join"
   ];
-  server.listen(8080);
+  server.listen(80);
   app.set("view engine", "ejs");
   app.use(express.static(__dirname + "/public"));
   app.get("/", (req, res) => {
@@ -33,7 +33,7 @@ module.exports = async Bot => {
       {
         clientID: process.env.DISCORDCLIENTID,
         clientSecret: process.env.DISCORDCLIENTSECRET,
-        callbackURL: "http://localhost:8080/callback",
+        callbackURL: "http://localhost:80/callback",
         scope: scopes
       },
       function(accessToken, refreshToken, profile, done) {
@@ -125,6 +125,13 @@ module.exports = async Bot => {
           //   user: req.user
           // });
           res.sendStatus(501);
+          break;
+        case "manage":
+          res.render("management.ejs", {
+            guild: guild,
+            Bot: Bot,
+            user: req.user
+          });
           break;
         default:
           res.sendStatus(404);

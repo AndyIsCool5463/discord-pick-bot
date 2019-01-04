@@ -1,0 +1,44 @@
+<html>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/manage.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+    crossorigin="anonymous"
+  />
+
+  <link rel="stylesheet" type="text/css" href="/css/management.css" />
+  <header>
+    <% include("./EJScomp/head", {user: user, Bot: Bot, guild: guild}); %>
+  </header>
+  <div>
+    <%- include("./EJScomp/navDash", {user: user, Bot: Bot, guild: guild}); %>
+  </div>
+  <!-- F -->
+  <body>
+    <div><h1 class="head">Management for: <%- guild.name %></h1></div>
+    <div>
+      <h3 class="desc">
+        Manage the server here, from banning people, seeing mute timers to
+        kicking people or making broadcasts without having discord open!
+      </h3>
+      <h2 class="Pnav">Navagation</h2>
+    </div>
+    <div>
+     <ul class="menu">
+         <li onclick=redir(this.id) id="memberlist">Member List</li>
+        <li onclick=redir(this.id) id="ban">Bans</li>
+        <li onclick=redir(this.id) id="kick">Kicks</li>
+        <li onclick=redir(this.id) id="broadcast">Broadcast Message</li>
+     </ul>
+    </div>
+    </div>
+  </body>
+</html>
+<script>
+function redir(f) {
+    window.location.href = `http://localhost:80/dashboard/edit/<%- user.id %>/<%- guild.id %>/manage/${f}`;
+
+}
+</script>
