@@ -3,6 +3,7 @@ var session = require("express-session"),
   passport = require("passport"),
   Strategy = require("passport-discord/lib").Strategy;
 const checkAuth = require("./functions/checkAuth.js");
+const colors = require("chalk");
 const app = express();
 //const port = 8080;
 var server = require("http").Server(app);
@@ -91,6 +92,27 @@ module.exports = async Bot => {
     socket.on("commandCreated", d => {
       console.log(d);
     });
+    socket.on("ban", res => {
+      const f = Bot.guilds
+        .filter(g => g.id == res.guild && g.ownerID == res.userBanning)
+        .map(g => {
+          return g;
+        });
+      if (f[0].ownerID == res.userBanning) {
+        const ripThisPerson = res.ban;
+        f[0]
+          .ban(ripThisPerson, {
+            reason: "Banned on admin dashboard."
+          })
+          .then(u => {
+            io.emit("banned", {
+              bannedUser: u
+            });
+          });
+      } else {
+        return io.emit("401");
+      }
+    });
   });
 
   app.get("/dashboard/edit/:userID/:serverID/:editing", checkAuth, function(
@@ -138,5 +160,59 @@ module.exports = async Bot => {
       }
     }
   });
+  app.get(
+    "/dashboard/edit/:userID/:serverID/:editing/:funct",
+    checkAuth,
+    (req, res) => {
+      const params = req.params;
+      const serverid = params.serverID;
+      const change = params.editing;
+      const user = params.userID;
+      const funct = params.funct;
+      var guildFind = function() {
+        const f = Bot.guilds.find("id", serverid);
+        if (!f) return res.sendStatus(401).end();
+        return f.ownerID;
+      };
+      if (user != guildFind()) {
+        res.send(401);
+      } else {
+        var guild = Bot.guilds.get(serverid);
+        switch (funct) {
+          case "broadcast":
+            res.render("broadcast.ejs", {
+              guild: guild,
+              Bot: Bot,
+              user: req.user
+            });
+            break;
+          case "kick":
+            // res.render("dashboardSettings.ejs", {
+            //   guild: guild,
+            //   Bot: Bot,
+            //   user: req.user
+            // });
+            res.sendStatus(501);
+            break;
+          case "ban":
+            res.render("bans.ejs", {
+              guild: guild,
+              Bot: Bot,
+              user: req.user
+            });
+            break;
+          case "memberlist":
+            res.render("memberlist.ejs", {
+              guild: guild,
+              Bot: Bot,
+              user: req.user
+            });
+            break;
+          default:
+            res.sendStatus(404);
+        }
+      }
+    }
+  );
   // app.listen(port, () => console.log(`Dashboard listening on port ${port}!`));
 };

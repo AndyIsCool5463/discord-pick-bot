@@ -1,4 +1,4 @@
-# Pick Bot ⏳
+# Pick Bot ⛏
 
 [![Build Status](https://travis-ci.org/AndyIsCool5463/discord-pick-bot.svg?branch=master)](https://travis-ci.org/AndyIsCool5463/discord-pick-bot)
 

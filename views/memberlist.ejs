@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/memberlist.css" />
+  </head>
+  <header>
+    <% include("./EJScomp/head", {user: user, Bot: Bot, guild: guild}); %>
+  </header>
+  <div>
+    <%- include("./EJScomp/navDash", {user: user, Bot: Bot, guild: guild}); %>
+  </div>
+  <h1 class="head">Member list for <b><%- guild.name %></b></h1>
+  <div>
+    <h1 class="head">Member Count: <code><%- guild.members.size %></code></h1>
+    <table>
+      <tr>
+        <td>Username</td>
+        <td>Profile Picture</td>
+        <td>Role(s)</td>
+        <td>Bannable?</td>
+        <td>Kickable?</td>
+        <td>Ban</td>
+      </tr>
+      <% guild.members.map(m => { %>
+      <tr>
+        <td><%- m.user.username %></td>
+        <td>
+          <img
+            src="https://cdn.discordapp.com/avatars/<%- m.id %>/<%- m.user.avatar %>.png?size=32"
+          />
+        </td>
+        <td><%- m.roles.map(c => { return ` ${c.name}`})%></td>
+        <td><%- m.bannable %></td>
+        <td><%- m.kickable %></td>
+        <td><button onclick="ban(this.id)" id="<%- m.id %>">Ban</button></td>
+      </tr>
+      <% }); %>
+    </table>
+  </div>
+</html>
+<script>
+  var socket = io.connect("http://localhost:80");
+  function ban(id) {
+    if (
+      confirm("Are you sure you want to ban this user from your server?") ==
+      true
+    ) {
+      socket.emit("ban", {
+        ban: id,
+        userBanning: "<%- user.id %>",
+        guild: "<%- guild.id %>"
+      });
+    } else {
+      return undefined;
+    }
+  }
+  socket.on("401", data => {
+    alert("401 Unauthorized.");
+  });
+  socket.on("banned", d => {
+    alert(
+      `You have just banned ${d.username}#${d.discriminator} from the server!`
+    );
+  });
+</script>
