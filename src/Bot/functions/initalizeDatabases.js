@@ -1,6 +1,9 @@
 const Enmap = require("enmap");
 const colors = require("chalk");
 module.exports = async Bot => {
+  Bot.serverConfig = new Enmap({
+    name: "Server config"
+  });
   Bot.xpDB = new Enmap({
     name: "Experience Database"
   });
@@ -10,7 +13,13 @@ module.exports = async Bot => {
   Bot.warnings = new Enmap({
     name: "Warnings Database"
   });
-
+  Bot.serverConfig.defer.then(() => {
+    console.log(
+      colors.yellow(
+        "Server Configuration Database has been loaded into memory!"
+      )
+    );
+  });
   Bot.xpDB.defer.then(() => {
     console.log(
       colors.yellow("Experience Database has been loaded into memory!")

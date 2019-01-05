@@ -4,7 +4,8 @@ module.exports = (Bot, guild) => {
     serverID: guild.id,
     prefix: "$",
     owner: guild.ownerID,
-    welcomeMessageEnabled: "true"
+    welcomeMessageEnabled: "true",
+    xpSystem: true
   };
   console.log(guild);
   async function f() {

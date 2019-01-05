@@ -8,25 +8,9 @@ exports.run = async (Bot, message, args) => {
       }set prefix !\``
     );
   if (args[0] == "prefix") {
-    const conf = {
-      serverID: config.serverID,
-      prefix: args[1],
-      welcomeMessageEnabled: config.welcomeMessageEnabled
-    };
-    fs.writeFile(
-      `./src/Bot/serverConfig/${message.guild.id}.json`,
-      JSON.stringify(conf),
-      function(err) {
-        if (err) throw err;
-        delete require.cache[require.resolve(`../events/message.js`)];
-        delete require.cache[require.resolve(`./set.js`)];
-        delete require.cache[
-          require.resolve(`../serverConfig/${message.guild.id}.json`)
-        ];
-        console.log("Saved!");
-        message.channel.send(`Prefix has been changed to \`${args[1]}\``);
-      }
-    );
+    Bot.serverConfig.set(message.guild.id, args[1], "prefix");
+    message.channel.send(`Server prefix has been set to, \`${args[1]} \``);
+    console.log(Bot.serverConfig.get(message.guild.id));
   }
 };
 exports.help = {

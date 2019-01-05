@@ -92,6 +92,25 @@ module.exports = async Bot => {
     socket.on("commandCreated", d => {
       console.log(d);
     });
+    socket.on("broadcast", d => {
+      console.log(d);
+      if (!d.msg) return;
+      if (!d.guild) return;
+      let msg = d.msg;
+      let channel = d.channel;
+      Bot.channels.find("id", channel).send(msg);
+    });
+    socket.on("fetchChannels", d => {
+      let guild = d.guild;
+      let f = Bot.channels
+        .filter(g => g.guild.id == guild && g.type == "text")
+        .map(c => {
+          return c;
+        });
+      io.emit("channelsResp", {
+        channels: f
+      });
+    });
     socket.on("ban", res => {
       const f = Bot.guilds
         .filter(g => g.id == res.guild && g.ownerID == res.userBanning)
@@ -203,6 +222,13 @@ module.exports = async Bot => {
             break;
           case "memberlist":
             res.render("memberlist.ejs", {
+              guild: guild,
+              Bot: Bot,
+              user: req.user
+            });
+            break;
+          case "config":
+            res.render("config.ejs", {
               guild: guild,
               Bot: Bot,
               user: req.user

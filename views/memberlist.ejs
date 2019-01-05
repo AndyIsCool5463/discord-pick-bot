@@ -20,6 +20,7 @@
         <td>Role(s)</td>
         <td>Bannable?</td>
         <td>Kickable?</td>
+        <td>XP</td>
         <td>Ban</td>
       </tr>
       <% guild.members.map(m => { %>
@@ -33,6 +34,11 @@
         <td><%- m.roles.map(c => { return ` ${c.name}`})%></td>
         <td><%- m.bannable %></td>
         <td><%- m.kickable %></td>
+        <td>
+          <% Bot.xpDB.ensure(`${guild.id}-${m.id}`, { user: m.id, guild:
+          guild.id, points: 0, level: 0 }) %> <%-
+          Bot.xpDB.get(`${guild.id}-${m.id}`, "points") %>
+        </td>
         <td><button onclick="ban(this.id)" id="<%- m.id %>">Ban</button></td>
       </tr>
       <% }); %>

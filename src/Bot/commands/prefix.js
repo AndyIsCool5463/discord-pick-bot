@@ -1,17 +1,19 @@
 const fs = require("fs");
 exports.run = async (Bot, message, args) => {
-  const config = require(`../serverConfig/${message.guild.id}.json`);
   message.channel.send(
-    `The default prefix for this guild is:\`${config.prefix}\` `
+    `The default prefix for this guild is:\`${Bot.serverConfig.get(
+      message.guild.id,
+      "prefix"
+    )}\` `
   );
 };
 exports.help = {
   name: "prefix",
-  category: "s",
+  category: "Developer",
   description: "Displays Bot information.",
-  usage: "botinfo",
+  usage: "",
   permission: "None",
-  alias: "hi"
+  alias: "None"
 };
 module.exports.settings = {
   disabled: false

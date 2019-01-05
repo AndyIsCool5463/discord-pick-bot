@@ -1,0 +1,55 @@
+<html>
+  <script src="/socket.io/socket.io.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+    crossorigin="anonymous"
+  />
+
+  <link rel="stylesheet" type="text/css" href="/css/config.css" />
+  <link rel="stylesheet" type="text/css" href="/css/broadcast.css" />
+  <header>
+    <% include("./EJScomp/head", {user: user, Bot: Bot, guild: guild}); %>
+  </header>
+  <div>
+    <%- include("./EJScomp/navDash", {user: user, Bot: Bot, guild: guild}); %>
+  </div>
+
+  <body>
+    <div>
+      <h2>Message</h2>
+      <input type="text" id="msg" />
+    </div>
+    <div onload="fetchChannels()"><select id="channels"> </select></div>
+    <div><button onclick="msgSend()">Send</button></div>
+  </body>
+</html>
+<script>
+  var socket = io.connect("http://localhost:80");
+  socket.emit("fetchChannels", {
+    guild: `<%- guild.id %>`
+  });
+  function msgSend() {
+    var msg = document.getElementById("msg").value;
+    var ch = document.getElementById("channels").value;
+    console.log(ch);
+    socket.emit("broadcast", {
+      msg: msg,
+      channel: ch,
+      guild: `<%- guild.id %>`
+    });
+  }
+  socket.on("channelsResp", d => {
+    d.channels.forEach(c => {
+      var doc = document.getElementById("channels");
+      var node = document.createElement("option");
+      node.id = c.id;
+      node.value = c.id;
+      var textnode = document.createTextNode(`#${c.name}`);
+      node.appendChild(textnode);
+      doc.appendChild(node);
+      console.log(c.name);
+    });
+  });
+</script>

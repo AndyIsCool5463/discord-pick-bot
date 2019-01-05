@@ -1,16 +1,44 @@
 require("dotenv").config();
+const Enmap = require("enmap");
 module.exports = (Bot, message, member) => {
   if (message.channel.type == "dm") return;
   // Ignore all bots
   if (message.author.bot) return;
   if (message.channel === "dm") return;
-  const config = require(`../serverConfig/${message.guild.id}.json`);
+  Bot.serverConfig.ensure(message.guild.id, {
+    serverID: message.guild.id,
+    prefix: "$",
+    welcomeMessageEnabled: true,
+    xpSystem: true
+  });
+  const config = Bot.serverConfig.get(message.guild.id);
   const prefix = config.prefix;
+
+  if (config.xpSystem === true) {
+    let guildID = message.guild.id;
+    let userID = message.author.id;
+    Bot.xpDB.ensure(`${guildID}-${userID}`, {
+      user: userID,
+      guild: guildID,
+      points: 0,
+      level: 0
+    });
+    const key = `${guildID}-${userID}`;
+    Bot.xpDB.inc(key, "points");
+
+    const curLevel = Math.floor(0.1 * Math.sqrt(Bot.xpDB.get(key, "points")));
+    if (Bot.xpDB.get(key, "level") < curLevel) {
+      message.reply(`You've leveled up to level **${curLevel}**!`);
+      leveledup(Bot, message, guild, key);
+      Bot.xpDB.set(key, curLevel, "level");
+    }
+  }
   // Ignore messages not starting with the prefix (in config.json)
   if (message.content.indexOf(prefix) !== 0) return;
   if (message.isMentioned(Bot.user)) {
     message.reply(`Default prefix for this guild is: \`${prefix}\`. `);
   }
+
   // Our standard argument/command name definition.
   const args = message.content
     .slice(prefix.length)

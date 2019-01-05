@@ -1,0 +1,34 @@
+<html>
+  <script src="/socket.io/socket.io.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+    crossorigin="anonymous"
+  />
+
+  <link rel="stylesheet" type="text/css" href="/css/config.css" />
+  <header>
+    <% include("./EJScomp/head", {user: user, Bot: Bot, guild: guild}); %>
+  </header>
+  <div>
+    <%- include("./EJScomp/navDash", {user: user, Bot: Bot, guild: guild}); %>
+  </div>
+  <body>
+    <h1>Configuration for: <%- guild.name %></h1>
+    <table>
+      <tr>
+        <td>Server ID</td>
+        <td>Prefix</td>
+        <td>Welcome MSG enabled?</td>
+        <td>XP System Enabled?</td>
+      </tr>
+      <tr>
+        <td><%- Bot.serverConfig.get(guild.id, "serverID")%></td>
+        <td><%- Bot.serverConfig.get(guild.id, "prefix")%></td>
+        <td><%- Bot.serverConfig.get(guild.id, "welcomeMessageEnabled")%></td>
+        <td><%- Bot.serverConfig.get(guild.id, "xpSystem") %></td>
+      </tr>
+    </table>
+  </body>
+</html>

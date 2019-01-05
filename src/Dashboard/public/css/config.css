@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+html {
+  background: #23272a;
+}
+.title {
+  font-family: Montserrat, sans-serif;
+  color: white;
+  padding: 150px;
+  padding-bottom: 5px;
+  text-align: center;
+  font-size: 40px;
+}
+.desc {
+  color: white;
+  text-align: center;
+  font-family: Montserrat, sans-serif;
+}
+#guildNameSmall {
+  color: gray;
+}
+h1 {
+  text-align: center;
+  color: white;
+  font-family: Montserrat;
+}
+table {
+  margin-right: auto;
+  margin-left: auto;
+}
+th,
+td {
+  border: 1px solid white;
+  padding: 20px;
+  color: white;
+  font-family: Montserrat;
+  text-align: center;
+}
+tr {
+  margin: 20px;
+}
+td {
+  margin: 200px;
+}
