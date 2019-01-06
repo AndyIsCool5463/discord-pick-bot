@@ -1,6 +1,6 @@
 {
   "verbose": true,
-  "ignore": ["*.json", "src/Dashboard/public/js"],
+  "ignore": ["*.json", "src/Dashboard/public/js", "data/"],
   "execMap": {
     "rb": "ruby",
     "pde": "processing --sketch={{pwd}} --run"

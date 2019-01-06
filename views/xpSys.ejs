@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/memberlist.css" />
+  </head>
+  <header>
+    <% include("./EJScomp/head", {user: user, Bot: Bot, guild: guild}); %>
+  </header>
+  <div>
+    <%- include("./EJScomp/navDash", {user: user, Bot: Bot, guild: guild}); %>
+  </div>
+  <div>
+    <h1 class="head">XP for <%- guild.name %></h1>
+    <table>
+      <tr>
+        <td>Username</td>
+        <td>Profile Picture</td>
+        <td>XP</td>
+        <td>Add XP</td>
+        <td>Remove XP</td>
+      </tr>
+      <% guild.members.map(m => { %>
+      <tr>
+        <td><%- m.user.username %></td>
+        <td>
+          <img
+            src="https://cdn.discordapp.com/avatars/<%- m.id %>/<%- m.user.avatar %>.png?size=32"
+          />
+        </td>
+        <td>
+          <% Bot.xpDB.ensure(`${guild.id}-${m.id}`, { user: m.id, guild:
+          guild.id, points: 0, level: 0 }) %> <%-
+          Bot.xpDB.get(`${guild.id}-${m.id}`, "points") %>
+        </td>
+        <td>
+          <button
+            id="add"
+            onclick="changeXP(this)"
+            value="<%-`${guild.id}-${m.id}`%>"
+          >
+            Add
+          </button>
+        </td>
+        <td>
+          <button
+            id="subtract"
+            onclick="changeXP(this)"
+            value="<%-`${guild.id}-${m.id}`%>"
+          >
+            Subtract
+          </button>
+        </td>
+      </tr>
+      <% }); %>
+    </table>
+  </div>
+</html>
+<script>
+  var socket = io.connect("http://localhost:80");
+  function changeXP(f) {
+    const g = f.value;
+    if (f.id == "add") {
+      var amt = prompt(`Enter amount of xp to add.`, 10);
+      console.log(amt);
+      socket.emit("addXP", {
+        xp: parseInt(amt),
+        userID: "<%- user.id %>",
+        guild: "<%- guild.id %>",
+        key: f.value
+      });
+      window.location.reload(true);
+    } else if (f.id == "subtract") {
+      var amt = prompt(`Enter amount of xp to add.`, 10);
+      socket.emit("subXP", {
+        xp: parseInt(amt),
+        userID: "<%- user.id %>",
+        guild: "<%- guild.id %>",
+        key: f.value
+      });
+      window.location.reload(true);
+    } else {
+      return console.error(
+        "Couldn't Change XP. Refresh the page or create an issue at, https://github.com/AndyIsCool5463/discord-pick-bot/issues"
+      );
+    }
+  }
+</script>

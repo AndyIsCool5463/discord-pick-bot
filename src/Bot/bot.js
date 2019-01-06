@@ -2,7 +2,9 @@ require("dotenv").config();
 const fs = require("fs");
 const Discord = require("discord.js");
 const colors = require("chalk");
-const Bot = new Discord.Client();
+const Bot = new Discord.Client({
+  disabledEvents: ["TYPING_START"]
+});
 const initdb = require("./functions/initalizeDatabases.js");
 const initServer = require("../Dashboard/server");
 Bot.login(process.env.TOKEN); // log bot in

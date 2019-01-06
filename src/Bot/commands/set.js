@@ -1,16 +1,33 @@
-const fs = require("fs");
 exports.run = async (Bot, message, args) => {
-  const config = require(`../serverConfig/${message.guild.id}.json`);
-  if (!args[0] || !args[1])
+  if (!args[0])
     return message.channel.send(
-      `You need to supply what you want to change like this: \`${
-        config.prefix
-      }set prefix !\``
+      `You need to supply what you want to change like this: \`${Bot.serverConfig.get(
+        message.guild.id,
+        "prefix"
+      )}set prefix !\``
     );
   if (args[0] == "prefix") {
+    if (!args[1])
+      return message.channel.send(
+        `You need to supply what you want to change like this: \`${Bot.serverConfig.get(
+          message.guild.id,
+          "prefix"
+        )}set prefix !\``
+      );
     Bot.serverConfig.set(message.guild.id, args[1], "prefix");
     message.channel.send(`Server prefix has been set to, \`${args[1]} \``);
     console.log(Bot.serverConfig.get(message.guild.id));
+  } else if (args[0] == "mod-log") {
+    Bot.serverConfig.set(
+      message.guild.id,
+      message.channel.id,
+      "mod-log-channel"
+    );
+    message.channel.send(
+      `Mod-log Channel has been set to channel id: ${
+        message.channel.id
+      }/ Name: ${message.channel.name}`
+    );
   }
 };
 exports.help = {

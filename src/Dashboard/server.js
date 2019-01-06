@@ -100,6 +100,22 @@ module.exports = async Bot => {
       let channel = d.channel;
       Bot.channels.find("id", channel).send(msg);
     });
+    socket.on("addXP", d => {
+      console.log(d);
+      if (d.xp === null) return;
+      const key = d.key;
+      const guildServer = Bot.guilds.find("id", d.guild).ownerID;
+      if (guildServer != d.userID) return;
+      Bot.xpDB.math(key, "+", d.xp, "points");
+    });
+    socket.on("subXP", d => {
+      console.log(d);
+      if (d.xp === null) return;
+      const key = d.key;
+      const guildServer = Bot.guilds.find("id", d.guild).ownerID;
+      if (guildServer != d.userID) return;
+      Bot.xpDB.math(key, "-", d.xp, "points");
+    });
     socket.on("fetchChannels", d => {
       let guild = d.guild;
       let f = Bot.channels
@@ -229,6 +245,13 @@ module.exports = async Bot => {
             break;
           case "config":
             res.render("config.ejs", {
+              guild: guild,
+              Bot: Bot,
+              user: req.user
+            });
+            break;
+          case "xpsys":
+            res.render("xpSys.ejs", {
               guild: guild,
               Bot: Bot,
               user: req.user

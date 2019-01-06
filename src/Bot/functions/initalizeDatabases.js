@@ -13,6 +13,9 @@ module.exports = async Bot => {
   Bot.warnings = new Enmap({
     name: "Warnings Database"
   });
+  Bot.bans = new Enmap({
+    name: "bans" // Silent
+  });
   Bot.serverConfig.defer.then(() => {
     console.log(
       colors.yellow(

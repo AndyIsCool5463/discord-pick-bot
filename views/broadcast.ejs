@@ -19,7 +19,7 @@
   <body>
     <div>
       <h2>Message</h2>
-      <input type="text" id="msg" />
+      <input type="text" id="msg" maxlength="2000" />
     </div>
     <div onload="fetchChannels()"><select id="channels"> </select></div>
     <div><button onclick="msgSend()">Send</button></div>
@@ -39,6 +39,7 @@
       channel: ch,
       guild: `<%- guild.id %>`
     });
+    window.location.reload(true);
   }
   socket.on("channelsResp", d => {
     d.channels.forEach(c => {
