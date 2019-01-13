@@ -18,13 +18,20 @@ exports.run = async (Bot, message, args) => {
     message.channel.send(`Server prefix has been set to, \`${args[1]} \``);
     console.log(Bot.serverConfig.get(message.guild.id));
   } else if (args[0] == "mod-log") {
+    Bot.serverConfig.set(message.guild.id, message.channel.id, "modlog");
+    message.channel.send(
+      `Mod-log Channel has been set to channel id: ${
+        message.channel.id
+      }/ Name: ${message.channel.name}`
+    );
+  } else if (args[0] == "welcomeChannel") {
     Bot.serverConfig.set(
       message.guild.id,
       message.channel.id,
-      "mod-log-channel"
+      "welcomeChannel"
     );
     message.channel.send(
-      `Mod-log Channel has been set to channel id: ${
+      `Welcome Channel has been set to channel id: ${
         message.channel.id
       }/ Name: ${message.channel.name}`
     );

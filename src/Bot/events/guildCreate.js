@@ -1,26 +1,13 @@
-const fs = require("fs");
 module.exports = (Bot, guild) => {
-  const conf = {
+  Bot.serverConfig.ensure(guild.id, {
     serverID: guild.id,
     prefix: "$",
-    owner: guild.ownerID,
-    welcomeMessageEnabled: "true",
+    welcomeMessageEnabled: true,
     xpSystem: true
-  };
-  console.log(guild);
-  async function f() {
-    await fs.unlink(`./src/Bot/serverConfig/${message.guild.id}.json`, e => {
-      console.log(e);
-    });
-  }
-  f();
-  fs.appendFileSync(
-    `./src/Bot/serverConfig/${guild.id}.json`,
-    JSON.stringify(conf),
-    function(err) {
-      if (err) throw err;
-      console.log("Saved!");
-    }
-  );
-  console.log(`File written to: ${guild.id}`);
+  });
+  Bot.users
+    .find("id", guild.ownerID)
+    .send(
+      `Thank you for inviting Pickbot! \n To set up this bot, please follow the tutorial at https://pick-bot.notasite ! \n We also have a custom dashboard to suit your needs without needing to be on discord! \n Check out all of the Bot features at the website!`
+    );
 };

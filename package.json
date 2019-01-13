@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 0",
     "dev": "next",
     "build": "next build",
-    "start": "nodemon start.js"
+    "start": "nodemon start.js",
+    "lint:ejs": "ejslint views/config.ejs"
   },
   "engines": {
     "node": "9.x"
@@ -44,7 +45,9 @@
   },
   "devDependencies": {
     "chalk": "^2.4.1",
+    "ejs-lint": "^0.3.0",
     "fs-extra": "^7.0.1",
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.18.9",
+    "wait-for-localhost": "^2.0.1"
   }
 }

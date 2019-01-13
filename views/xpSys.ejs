@@ -12,10 +12,16 @@
   </div>
   <div>
     <h1 class="head">XP for <%- guild.name %></h1>
+    <h3 class="head">
+      Total XP for <%- guild.name %>: <% var f = [] %><% Bot.xpDB.filter(c =>
+      c.guild == guild.id).map(c => { f.push(c.points);})%><% var sum =
+      f.reduce(add, 0); function add(a, b) { return a + b; }%> <%- sum %>
+    </h3>
     <table>
       <tr>
         <td>Username</td>
         <td>Profile Picture</td>
+        <td>Level</td>
         <td>XP</td>
         <td>Add XP</td>
         <td>Remove XP</td>
@@ -27,6 +33,11 @@
           <img
             src="https://cdn.discordapp.com/avatars/<%- m.id %>/<%- m.user.avatar %>.png?size=32"
           />
+        </td>
+        <td>
+          <% Bot.xpDB.ensure(`${guild.id}-${m.id}`, { user: m.id, guild:
+          guild.id, points: 0, level: 0 }) %> <%-
+          Bot.xpDB.get(`${guild.id}-${m.id}`, "level") %>
         </td>
         <td>
           <% Bot.xpDB.ensure(`${guild.id}-${m.id}`, { user: m.id, guild:
@@ -71,7 +82,7 @@
       });
       window.location.reload(true);
     } else if (f.id == "subtract") {
-      var amt = prompt(`Enter amount of xp to add.`, 10);
+      var amt = prompt(`Enter amount of xp to subtract.`, 10);
       socket.emit("subXP", {
         xp: parseInt(amt),
         userID: "<%- user.id %>",

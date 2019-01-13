@@ -6,6 +6,8 @@ const checkAuth = require("./functions/checkAuth.js");
 const colors = require("chalk");
 const app = express();
 //const port = 8080;
+const ejsLint = require("ejs-lint");
+
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
 
@@ -19,9 +21,6 @@ module.exports = async Bot => {
   server.listen(80);
   app.set("view engine", "ejs");
   app.use(express.static(__dirname + "/public"));
-  app.get("/", (req, res) => {
-    res.render("index.ejs");
-  });
   passport.serializeUser(function(user, done) {
     done(null, user);
   });
@@ -54,6 +53,12 @@ module.exports = async Bot => {
   );
   app.use(passport.initialize());
   app.use(passport.session());
+  app.get("/", (req, res) => {
+    console.log(req.isAuthenticated());
+    res.render("index.ejs", {
+      isAuth: req.isAuthenticated()
+    }); //  { isAuth: req.isAuthenticated() }
+  });
   app.get(
     "/login",
     passport.authenticate("discord", { scope: scopes }),
@@ -252,6 +257,13 @@ module.exports = async Bot => {
             break;
           case "xpsys":
             res.render("xpSys.ejs", {
+              guild: guild,
+              Bot: Bot,
+              user: req.user
+            });
+            break;
+          case "testing":
+            res.render("Bootstrap.ejs", {
               guild: guild,
               Bot: Bot,
               user: req.user

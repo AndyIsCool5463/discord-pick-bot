@@ -1,4 +1,8 @@
 <html>
+  <% Bot.serverConfig.ensure(guild.id, { serverID: guild.id, prefix: "$",
+  welcomeMessageEnabled: true, xpSystem: true, queue: {}, twitchStream: [],
+  customCommands: [ { name: "test1", msg: "test1Resp" }, { name: "test2", msg:
+  "test2Resp" } ] });%>
   <script src="/socket.io/socket.io.js"></script>
   <link
     rel="stylesheet"
@@ -22,12 +26,18 @@
         <td>Prefix</td>
         <td>Welcome MSG enabled?</td>
         <td>XP System Enabled?</td>
+        <td>Mod-Log Channel</td>
       </tr>
       <tr>
         <td><%- Bot.serverConfig.get(guild.id, "serverID")%></td>
         <td><%- Bot.serverConfig.get(guild.id, "prefix")%></td>
         <td><%- Bot.serverConfig.get(guild.id, "welcomeMessageEnabled")%></td>
         <td><%- Bot.serverConfig.get(guild.id, "xpSystem") %></td>
+        <td>
+          <% if(!Bot.serverConfig.get(guild.id, "modlog")){f = "None" }else{ f
+          =`# ${Bot.channels.find("id", Bot.serverConfig.get(guild.id,
+          "modlog")).name}` } %> <%- f %>
+        </td>
       </tr>
     </table>
   </body>

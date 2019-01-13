@@ -3,58 +3,37 @@ const { Util } = require("discord.js");
 const ytdl = require("ytdl-core");
 const Youtube = require("simple-youtube-api");
 const youtube = new Youtube(process.env.GOOGLE_API_KEY);
-const handleVideo = require("../functions/music/handleVideo.js");
-exports.run = async (Bot, msg, args) => {
+const handleVid = require("./../functions/music/handleVid.js");
+exports.run = async (Bot, message, args) => {
   Bot.queue = new Map();
-  const searchString = args.slice(0).join(" ");
-  const url = args[0] ? args[0].replace(/<(.+)>/g, "$1") : "";
-  console.log(searchString);
-  console.log(url);
-  // console.log(url);
-  // User in Channel..?
-  const voiceChannel = msg.member.voiceChannel;
+  var guild = message.guild.id;
+  const voiceChannel = message.member.voiceChannel;
   if (!voiceChannel)
-    return msg.channel
-      .send("I'm sorry but you need to be in a voice channel to play music!")
-      .then(m => {
-        setTimeout(function() {
-          m.delete();
-        }, 10000);
-      });
-  // Permission Checking
-  const permissions = voiceChannel.permissionsFor(msg.client.user);
+    return message.reply("You need to be in a voice channel to play music!"); // TODO: Remove message after 10secs
+  const permissions = voiceChannel.permissionsFor(Bot.user);
   if (!permissions.has("CONNECT")) {
-    return msg.channel
-      .send(
-        "I cannot connect to your voice channel, make sure I have the proper permissions!"
-      )
-      .then(m => {
-        setTimeout(function() {
-          m.delete();
-        }, 10000);
-      });
+    return message.channel.send(
+      "I can't connect to the channel! Please make sure I have proper permissions!"
+    );
   }
   if (!permissions.has("SPEAK")) {
-    return msg.channel
-      .send(
-        "I cannot speak in this voice channel, make sure I have the proper permissions!"
-      )
-      .then(m => {
-        setTimeout(function() {
-          m.delete();
-        }, 10000);
-      });
+    return message.channel.send(
+      "I can't speak! Please make sure I have proper permissions!"
+    );
   }
-  // URL Check
-
+  Bot.serverConfig.ensure(message.guild.id, "queue");
+  var url = args[0];
+  var searchString = args.join(" ");
+  console.log(url);
+  console.log(searchString);
   if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
     const playlist = await youtube.getPlaylist(url);
     const videos = await playlist.getVideos();
-    for (const video of Object.values(videos)) {
-      const video2 = await youtube.getVideoByID(video.id); // eslint-disable-line no-await-in-loop
-      await handleVideo(video2, msg, voiceChannel, true); // eslint-disable-line no-await-in-loop
+    for (var vid of Object.values(videos)) {
+      const video = await youtube.getVideoByID(vid.id);
+      await handleVid(video, message, voiceChannel, true);
     }
-    return msg.channel.send(
+    return message.channel.send(
       `✅ Playlist: **${playlist.title}** has been added to the queue!`
     );
   } else {
@@ -64,36 +43,38 @@ exports.run = async (Bot, msg, args) => {
       try {
         var videos = await youtube.searchVideos(searchString, 10);
         let index = 0;
-        msg.channel.send(`
+        message.channel.send(`
 __**Song selection:**__
 ${videos.map(video2 => `**${++index} -** ${video2.title}`).join("\n")}
 Please provide a value to select one of the search results ranging from 1-10.
-                    `);
+          `);
+
         try {
-          var response = await msg.channel.awaitMessages(
-            msg2 => msg2.content > 0 && msg.content < 11,
-            {
-              maxMatches: 1,
-              time: 10000,
-              errors: ["time"]
-            }
-          );
-        } catch (error) {
-          console.error(error);
-          return msg.channel.send(
+          var response = await message.channel.awaitMessages(msg => {
+            msg.content > 0 && msg.content < 11,
+              {
+                maxMatches: 1,
+                time: 10000,
+                errors: ["time"]
+              };
+          });
+        } catch (err) {
+          console.log(err);
+          return message.channel.send(
             "No or invalid value entered, cancelling video selection."
           );
         }
         const videoIndex = parseInt(response.first().content);
-        var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
+        var video = await youtube.getVideoByID(video[videoIndex - 1].id);
       } catch (err) {
-        console.error(err);
-        return msg.channel.send("🆘 I could not obtain any search results.");
+        console.log(err);
+        return message.channel.send(
+          "🆘 I could not obtain any search results."
+        );
       }
     }
-    return handleVideo(Bot, video, msg, voiceChannel);
+    return handleVid(Bot, video, message, voiceChannel);
   }
-  // Error Handling ^_^
 };
 
 exports.help = {
@@ -105,5 +86,5 @@ exports.help = {
   alias: "None"
 };
 module.exports.settings = {
-  disabled: true
+  disabled: false
 };
