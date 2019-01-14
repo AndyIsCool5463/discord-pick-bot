@@ -1,0 +1,72 @@
+<html>
+  <%- include("../../EJScomp/bootstrap/nav", {user: user}); %>
+  <div class="jumbotron">
+    <h1 class="text-center">Dashboard</h1>
+    <h1 class="text-center" id="welcomeMsg"></h1>
+  </div>
+  <div class="container">
+    <h1 class="text-center">SELECT SERVER</h1>
+    <div class="server_ico">
+      <% guilds.forEach(g => {%>
+      <span>
+        <%if(!g.iconURL) { %>
+        <p><%- g.name %></p>
+        <%} else {%>
+        <img
+          onclick="redirect(this.id)"
+          id="<%- g.id %>"
+          src="https://cdn.discordapp.com/icons/<%- g.id %>/<%- g.icon %>.png"
+        />
+        <span class="tooltiptext"> <%- g.name %></span> <% } %>
+      </span>
+      <%})%>
+    </div>
+  </div>
+</html>
+<script>
+  var timeGreet = function() {
+    let f = document.getElementById("welcomeMsg");
+    var today = new Date();
+    var now = today.getHours();
+    var message;
+
+    if (now < 12) {
+      message = "Good Morning";
+    } else if (now < 18) {
+      message = "Good Afternoon";
+    } else {
+      message = "Good Evening";
+    }
+    var xd = today.toLocaleTimeString();
+    var day = today.toLocaleDateString();
+    var timezone = today.getTimezoneOffset();
+    return (f.innerHTML = `${message}, <%- user.username %>`);
+  };
+  timeGreet();
+  function redirect(id) {
+    window.location.href = `/dashboard/edit/<%- user.id %>/${id}/manage`;
+  }
+</script>
+<style>
+  .server_ico {
+    display: table;
+    width: 100%;
+    table-layout: fixed; /* For cells of equal size */
+  }
+  .server_ico > span {
+    display: table-cell;
+    border-radius: 64px;
+    text-align: center;
+  }
+  .server_ico > span > img {
+    display: table-cell;
+    border-radius: 64px;
+    text-align: center;
+    transition: 800ms ease all;
+  }
+  .server_ico > span > img:hover {
+    border: 2px solid black;
+    cursor: pointer;
+    box-shadow: 10px 10px grey;
+  }
+</style>

@@ -18,41 +18,51 @@
       crossorigin="anonymous"
     />
   </head>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="color: white;">
+  <nav
+    class="navbar navbar-expand-lg navbar-dark bg-dark"
+    style="color: white;"
+  >
     <a class="navbar-brand">Discord Pick Bot</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active"><a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a></li>
-            <li class="nav-item active"><a class="nav-link" href="#">Invite Bot</a></li>
-            <li class="nav-item active"><a class="nav-link" href="#">Updates <i class="fas fa-exclamation-circle"></i></a></li>
-
-        </ul>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/"
+            >Home <span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Invite Bot</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#"
+            >Updates <i class="fas fa-exclamation-circle"></i
+          ></a>
+        </li>
+      </ul>
     </div>
-    
-    
-   
-    <a class="nav-link" href="#">Settings </a>
-    <% if("isAuth") { %>
-      <button type="button" class="btn btn-danger">
-        Logout <i class="fas fa-sign-out-alt"></i>
-      </button>
-      <% } else { %> 
-        <button type="button" class="btn btn-primary">
-          Login <i class="fas fa-sign-out-alt"></i>
-        </button>
-        <% } %>
-    
+
+    <a class="nav-link" href="#">Settings </a> <% if("isAuth") { %>
+    <button type="button" class="btn btn-danger">
+      Logout <i class="fas fa-sign-out-alt"></i>
+    </button>
+    <% } else { %>
+    <button type="button" class="btn btn-primary">
+      Login <i class="fas fa-sign-out-alt"></i>
+    </button>
+    <% } %>
   </nav>
-  <div class="container"">
-
-      <h1>Hello <%- user.username %> Testing With <var>Bootstrap</var></h1>
-    <div class="footer">
-        hisf
-    </div>
+  <div class="jumbotron">
+    <h1>Hello <%- user.username %> Testing With <var>Bootstrap</var></h1>
   </div>
-  
 </html>

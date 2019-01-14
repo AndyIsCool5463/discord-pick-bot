@@ -12,6 +12,7 @@ var server = require("http").Server(app);
 var io = require("socket.io")(server);
 
 module.exports = async Bot => {
+  console.log(colors.red(process.env.OAUTHCALLBACK));
   var scopes = [
     "identify",
     "email",
@@ -33,7 +34,7 @@ module.exports = async Bot => {
       {
         clientID: process.env.DISCORDCLIENTID,
         clientSecret: process.env.DISCORDCLIENTSECRET,
-        callbackURL: "http://localhost:80/callback",
+        callbackURL: process.env.OAUTHCALLBACK,
         scope: scopes
       },
       function(accessToken, refreshToken, profile, done) {
@@ -56,7 +57,8 @@ module.exports = async Bot => {
   app.get("/", (req, res) => {
     console.log(req.isAuthenticated());
     res.render("index.ejs", {
-      isAuth: req.isAuthenticated()
+      isAuth: req.isAuthenticated(),
+      user: req.user
     }); //  { isAuth: req.isAuthenticated() }
   });
   app.get(
@@ -68,7 +70,7 @@ module.exports = async Bot => {
     "/callback",
     passport.authenticate("discord", { failureRedirect: "/" }),
     function(req, res) {
-      res.redirect("/dashboard");
+      res.redirect("/");
     } // auth success
   );
   app.get("/logout", function(req, res) {
@@ -80,6 +82,15 @@ module.exports = async Bot => {
     // console.log(guilds);
     res.render("dashboard.ejs", {
       data: req.user,
+      guilds: guilds,
+      Bot: Bot
+    });
+  });
+  app.get("/testingDash", checkAuth, function(req, res) {
+    var guilds = Bot.guilds.filter(g => g.ownerID == req.user.id);
+    res.render("./bootstrap/dashboard/home.ejs", {
+      user: req.user,
+      isAuth: req.isAuthenticated(),
       guilds: guilds,
       Bot: Bot
     });

@@ -1,0 +1,125 @@
+<%- include("./head") %>
+<style>
+  #disabledLI:hover {
+    cursor: not-allowed;
+  }
+
+  #avatar {
+    border-radius: 64px;
+  }
+  #alert {
+    padding: 20px;
+    background-color: #2196f3;
+    color: white;
+    display: none;
+  }
+
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .closebtn:hover {
+    color: black;
+  }
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class=" navbar-brand">Discord Pick Bot</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/"
+          >Home <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <% if(isAuth) { %>
+      <li class="nav-item active">
+        <a class="nav-link" href="/dashboard"
+          >Dashboard <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <% } else { %>
+      <li class="nav-item active" id="disabledLI">
+        <a class="nav-link disabled" href="#" style="color: #D3D3D3;"
+          >Dashboard <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <% } %>
+      <li class="nav-item active">
+        <a
+          class="nav-link"
+          href="https://discordapp.com/oauth2/authorize?client_id=525901565018767364&permissions=133160&scope=bot"
+          >Invite Bot</a
+        >
+      </li>
+      <li class="nav-item active">
+        <a
+          class="nav-link"
+          href="https://github.com/AndyIsCool5463/discord-pick-bot"
+          >Updates <i class="fas fa-exclamation-circle"></i
+        ></a>
+      </li>
+    </ul>
+  </div>
+
+  <% if(isAuth) { %>
+  <a href="#" class="navbar-left" style="color: white;">
+    <img
+      src="https://cdn.discordapp.com/avatars/<%- user.id %>/<%- user.avatar%>.png?size=32"
+      id="avatar"
+    />
+    <%- user.username%></a
+  >
+  <% } else { %> <% } %> <a class="nav-link" href="#">Settings </a> <%
+  if(isAuth) { %>
+  <button type="button" onclick="redir(1)" class="btn btn-danger">
+    Logout <i class="fas fa-sign-out-alt"></i>
+  </button>
+  <% } else { %>
+  <button type="button" onclick="redir(2)" class="btn btn-primary">
+    Login <i class="fas fa-sign-out-alt"></i>
+  </button>
+  <% } %>
+</nav>
+<div id="alert">
+  <span class="closebtn">&times;</span> You have been logged out!
+</div>
+<script>
+  function redir(bool) {
+    if (bool == 1) {
+      window.location.href = "/logout";
+      document.getElementById("alert").style.display = "block";
+    } else if (bool === 2) {
+      window.location.href = "/login";
+    }
+  }
+  var close = document.getElementsByClassName("closebtn");
+  var i;
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.opacity = "0";
+      setTimeout(function() {
+        div.style.display = "none";
+      }, 600);
+    };
+  }
+</script>
