@@ -1,7 +1,6 @@
 <html>
   <head>
     <script src="/socket.io/socket.io.js"></script>
-
     <link rel="stylesheet" type="text/css" href="/css/memberlist.css" />
   </head>
   <header>
@@ -39,7 +38,16 @@
           guild.id, points: 0, level: 0 }) %> <%-
           Bot.xpDB.get(`${guild.id}-${m.id}`, "points") %>
         </td>
-        <td><button onclick="ban(this.id)" id="<%- m.id %>">Ban</button></td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-danger"
+            onclick="ban(this.id)"
+            id="<%- m.id %>"
+          >
+            Ban
+          </button>
+        </td>
       </tr>
       <% }); %>
     </table>

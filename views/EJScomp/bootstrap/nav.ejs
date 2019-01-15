@@ -51,7 +51,7 @@
       </li>
       <% if(isAuth) { %>
       <li class="nav-item active">
-        <a class="nav-link" href="/dashboard"
+        <a class="nav-link" href="/testingDash"
           >Dashboard <span class="sr-only">(current)</span></a
         >
       </li>
@@ -73,9 +73,11 @@
         <a
           class="nav-link"
           href="https://github.com/AndyIsCool5463/discord-pick-bot"
-          >Updates <i class="fas fa-exclamation-circle"></i
+          >Updates </i
         ></a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/docs">Documentation</a>
     </ul>
   </div>
 
@@ -87,7 +89,8 @@
     />
     <%- user.username%></a
   >
-  <% } else { %> <% } %> <a class="nav-link" href="#">Settings </a> <%
+  <a class="nav-link" href="/user/settings">Settings </a>
+  <% } else { %> <% } %> <%
   if(isAuth) { %>
   <button type="button" onclick="redir(1)" class="btn btn-danger">
     Logout <i class="fas fa-sign-out-alt"></i>
@@ -98,7 +101,7 @@
   </button>
   <% } %>
 </nav>
-<div id="alert">
+<div id="alert" role="alert">
   <span class="closebtn">&times;</span> You have been logged out!
 </div>
 <script>

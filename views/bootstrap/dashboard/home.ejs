@@ -1,29 +1,42 @@
 <html>
+  <title>PB - Guild Selection</title>
   <%- include("../../EJScomp/bootstrap/nav", {user: user}); %>
   <div class="jumbotron">
-    <h1 class="text-center">Dashboard</h1>
+    <h1 class="text-center">Pick Bot Dashboard</h1>
     <h1 class="text-center" id="welcomeMsg"></h1>
   </div>
   <div class="container">
     <h1 class="text-center">SELECT SERVER</h1>
     <div class="server_ico">
-      <% guilds.forEach(g => {%>
-      <span>
-        <%if(!g.iconURL) { %>
-        <p><%- g.name %></p>
-        <%} else {%>
-        <img
-          onclick="redirect(this.id)"
-          id="<%- g.id %>"
-          src="https://cdn.discordapp.com/icons/<%- g.id %>/<%- g.icon %>.png"
-        />
-        <span class="tooltiptext"> <%- g.name %></span> <% } %>
-      </span>
-      <%})%>
+      <section id="guildSelect">
+        <ul class="guildSelectGuilds">
+          <% guilds.forEach(g => {%>
+          <li onclick="redirect(this.id)" id="<%- g.id %>">
+            <%if(!g.iconURL) { %>
+            <div class="guildNoIcon"><span> <%- g.name %></span></div>
+            <br /><span class="tooltiptext"> <%- g.name %></span> <%} else {%>
+            <img
+              onclick="redirect(this.id)"
+              id="<%- g.id %>"
+              src="https://cdn.discordapp.com/icons/<%- g.id %>/<%- g.icon %>.png"
+            />
+            <br />
+            <span class="tooltiptext"> <%- g.name %></span> <% } %>
+          </li>
+          <%})%>
+          <li onclick="invite()">
+            <div><i class="fas fa-plus"></i></div>
+          </li>
+        </ul>
+      </section>
     </div>
   </div>
 </html>
 <script>
+  function invite() {
+    window.location.href =
+      "https://discordapp.com/oauth2/authorize?client_id=525901565018767364&scope=bot&permissions=8&redirect_uri=http%3A%2F%2Flocalhost%3A80%2FtestingDash";
+  }
   var timeGreet = function() {
     let f = document.getElementById("welcomeMsg");
     var today = new Date();
@@ -68,5 +81,47 @@
     border: 2px solid black;
     cursor: pointer;
     box-shadow: 10px 10px grey;
+  }
+  .guildNoIcon {
+    background: rgb(31, 34, 37);
+    color: rgb(254, 254, 255);
+    border-radius: 50%;
+    width: 128px;
+    height: 128px;
+    align-items: center;
+  }
+  .guildNoIcon > span {
+    text-align: center;
+  }
+  .guildSelectGuilds {
+    width: 70%;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-orient: horizontal;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .guildSelectGuilds > li {
+    padding: 30px;
+    transition: 800ms ease all;
+  }
+  .guildSelectGuilds > li > img {
+    border-radius: 50%;
+  }
+  .guildSelectGuilds > li:hover {
+    cursor: pointer;
+    border: 1px solid black;
+  }
+  .guildNoIcon {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 600px;
   }
 </style>

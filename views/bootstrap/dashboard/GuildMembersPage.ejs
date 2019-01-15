@@ -1,0 +1,136 @@
+<html>
+  <%- include("../../EJScomp/bootstrap/nav", {user: user}); %>
+  <div class="subheading">
+    <div class="guildIcon&Info">
+      <div
+        class="guildIcon"
+        style="background-image: url('https://cdn.discordapp.com/icons/<%- guild.id %>/<%- guild.icon %>.jpg');"
+      ></div>
+      <span> <%- guild.name %></span>
+    </div>
+    <div class="subHeadCategories">
+      <ul class="menu">
+        <li id="config" onclick="redirect(this.id)">Configuration</li>
+        <li id="broadcast" onclick="redirect(this.id)">Broadcast Messages</li>
+        <li id="commands" onclick="redirect(this.id)">Commands</li>
+        <li id="memberlist" onclick="redirect(this.id)">Members List</li>
+      </ul>
+    </div>
+  </div>
+  <!-- This is Default Page when they log in. The Configuration Page. It seems suitable for now but subject to change. -->
+  <section class="config">
+    <h1>Configuration</h1>
+    <p>
+      This is your configuration Channel for the guild:
+      <b> <%- guild.name %></b>! You can configure the settings to how you'd
+      like.
+    </p>
+    <table class="table">
+      <thead>
+        <tr>
+          <td>Username</td>
+          <td>Profile Picture</td>
+          <td>Role(s)</td>
+          <td>Bannable?</td>
+          <td>Kickable?</td>
+          <td>XP</td>
+          <td>Ban</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% guild.members.map(m => { %>
+        <tr>
+          <td><%- m.user.username %></td>
+          <td>
+            <img
+              src="https://cdn.discordapp.com/avatars/<%- m.id %>/<%- m.user.avatar %>.png?size=32"
+            />
+          </td>
+          <td><%- m.roles.map(c => { return ` ${c.name}`})%></td>
+          <td><%- m.bannable %></td>
+          <td><%- m.kickable %></td>
+          <td>
+            <% Bot.xpDB.ensure(`${guild.id}-${m.id}`, { user: m.id, guild:
+            guild.id, points: 0, level: 0 }) %> <%-
+            Bot.xpDB.get(`${guild.id}-${m.id}`, "points") %>
+          </td>
+          <td>
+            <button
+              class="btn btn-danger"
+              onclick="ban(this.id)"
+              id="<%- m.id %>"
+            >
+              Ban
+            </button>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </section>
+</html>
+<script>
+  function redirect(id) {
+    window.location.href = `/dashboard/edit/<%- user.id %>/<%- guild.id %>/manage/${id}`;
+  }
+</script>
+
+<style>
+  @import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+  * {
+    font-family: Open Sans;
+  }
+
+  .subheading {
+    background: #2b2f33;
+  }
+
+  .guildIcon {
+    width: 35px;
+    height: 35px;
+    background-size: 35px;
+    background-position: center;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid black;
+  }
+
+  .guildIcon\&Info {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    font-family: Open Sans, sans-serif;
+  }
+
+  .menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-orient: horizontal;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: white;
+  }
+
+  .menu > li {
+    border: 10px solid #2b2f33;
+    padding: 20px;
+    transition: 800ms ease all;
+  }
+
+  .menu > li:hover {
+    cursor: pointer;
+    outline: none;
+    border-bottom-color: rgb(23, 184, 238);
+  }
+
+  .config {
+    text-align: center;
+  }
+</style>

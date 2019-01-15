@@ -86,6 +86,9 @@ module.exports = async Bot => {
       Bot: Bot
     });
   });
+  app.get("/user/settings", checkAuth, function(req, res) {
+    res.render("./bootstrap/settings.ejs");
+  });
   app.get("/testingDash", checkAuth, function(req, res) {
     var guilds = Bot.guilds.filter(g => g.ownerID == req.user.id);
     res.render("./bootstrap/dashboard/home.ejs", {
@@ -95,7 +98,15 @@ module.exports = async Bot => {
       Bot: Bot
     });
   });
-
+  app.get("/testingDash/:a", checkAuth, (req, res) => {
+    var guilds = Bot.guilds.filter(g => g.ownerID == req.user.id);
+    res.render(`./bootstrap/dashboard/${req.params.a}.ejs`, {
+      user: req.user,
+      isAuth: req.isAuthenticated(),
+      guilds: guilds,
+      Bot: Bot
+    });
+  });
   io.on("connection", function(socket) {
     socket.on("news", data => {
       console.log(data);
@@ -253,17 +264,19 @@ module.exports = async Bot => {
             });
             break;
           case "memberlist":
-            res.render("memberlist.ejs", {
+            res.render("./bootstrap/dashboard/GuildMembersPage.ejs", {
               guild: guild,
               Bot: Bot,
-              user: req.user
+              user: req.user,
+              isAuth: req.isAuthenticated()
             });
             break;
           case "config":
-            res.render("config.ejs", {
+            res.render("./bootstrap/dashboard/GuildHomePage.ejs", {
               guild: guild,
               Bot: Bot,
-              user: req.user
+              user: req.user,
+              isAuth: req.isAuthenticated()
             });
             break;
           case "xpsys":
@@ -280,11 +293,22 @@ module.exports = async Bot => {
               user: req.user
             });
             break;
+          case "commands":
+            res.render("./bootstrap/dashboard/GuildCommandsPage.ejs", {
+              guild: guild,
+              Bot: Bot,
+              user: req.user,
+              isAuth: req.isAuthenticated()
+            });
+            break;
           default:
             res.sendStatus(404);
         }
       }
     }
   );
+  app.get("*", function(req, res) {
+    res.render("./bootstrap/not_found.ejs");
+  });
   // app.listen(port, () => console.log(`Dashboard listening on port ${port}!`));
 };
