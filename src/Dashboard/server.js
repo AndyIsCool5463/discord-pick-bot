@@ -280,10 +280,11 @@ module.exports = async Bot => {
             });
             break;
           case "xpsys":
-            res.render("xpSys.ejs", {
+            res.render("./bootstrap/dashboard/GuildExperiencePage.ejs", {
               guild: guild,
               Bot: Bot,
-              user: req.user
+              user: req.user,
+              isAuth: req.isAuthenticated()
             });
             break;
           case "testing":

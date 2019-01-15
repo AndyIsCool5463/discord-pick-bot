@@ -19,7 +19,7 @@
   </div>
   <!-- This is Default Page when they log in. The Configuration Page. It seems suitable for now but subject to change. -->
   <section class="config">
-    <h1>Members List</h1>
+    <h1>Experience Database</h1>
     <p>
       This is your configuration Channel for the guild:
       <b> <%- guild.name %></b>! You can configure the settings to how you'd
@@ -30,11 +30,10 @@
         <tr>
           <td>Username</td>
           <td>Profile Picture</td>
-          <td>Role(s)</td>
-          <td>Bannable?</td>
-          <td>Kickable?</td>
-          <td id="xpsys" onclick="redirect(this.id)">XP</td>
-          <td>Ban</td>
+          <td>Level</td>
+          <td>XP</td>
+          <td>Add XP</td>
+          <td>Remove XP</td>
         </tr>
       </thead>
       <tbody>
@@ -46,9 +45,11 @@
               src="https://cdn.discordapp.com/avatars/<%- m.id %>/<%- m.user.avatar %>.png?size=32"
             />
           </td>
-          <td><%- m.roles.map(c => { return ` ${c.name}`})%></td>
-          <td><%- m.bannable %></td>
-          <td><%- m.kickable %></td>
+          <td>
+            <% Bot.xpDB.ensure(`${guild.id}-${m.id}`, { user: m.id, guild:
+            guild.id, points: 0, level: 0 }) %> <%-
+            Bot.xpDB.get(`${guild.id}-${m.id}`, "level") %>
+          </td>
           <td>
             <% Bot.xpDB.ensure(`${guild.id}-${m.id}`, { user: m.id, guild:
             guild.id, points: 0, level: 0 }) %> <%-
@@ -56,11 +57,22 @@
           </td>
           <td>
             <button
-              class="btn btn-danger"
-              onclick="ban(this.id)"
-              id="<%- m.id %>"
+              id="add"
+              class="btn btn-success"
+              onclick="changeXP(this)"
+              value="<%-`${guild.id}-${m.id}`%>"
             >
-              Ban
+              Add
+            </button>
+          </td>
+          <td>
+            <button
+              id="subtract"
+              class="btn btn-danger"
+              onclick="changeXP(this)"
+              value="<%-`${guild.id}-${m.id}`%>"
+            >
+              Subtract
             </button>
           </td>
         </tr>
@@ -133,12 +145,34 @@
   .config {
     text-align: center;
   }
-  #xpsys {
-    text-decoration-line: underline;
-    text-decoration-style: dotted;
-    color: rgb(23, 184, 238);
-  }
-  #xpsys:hover {
-    cursor: pointer;
-  }
 </style>
+<script>
+  var socket = io.connect("http://localhost:80");
+  function changeXP(f) {
+    const g = f.value;
+    if (f.id == "add") {
+      var amt = prompt(`Enter amount of xp to add.`, 10);
+      console.log(amt);
+      socket.emit("addXP", {
+        xp: parseInt(amt),
+        userID: "<%- user.id %>",
+        guild: "<%- guild.id %>",
+        key: f.value
+      });
+      window.location.reload(true);
+    } else if (f.id == "subtract") {
+      var amt = prompt(`Enter amount of xp to subtract.`, 10);
+      socket.emit("subXP", {
+        xp: parseInt(amt),
+        userID: "<%- user.id %>",
+        guild: "<%- guild.id %>",
+        key: f.value
+      });
+      window.location.reload(true);
+    } else {
+      return console.error(
+        "Couldn't Change XP. Refresh the page or create an issue at, https://github.com/AndyIsCool5463/discord-pick-bot/issues"
+      );
+    }
+  }
+</script>
