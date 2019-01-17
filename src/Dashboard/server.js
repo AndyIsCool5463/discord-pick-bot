@@ -87,7 +87,10 @@ module.exports = async Bot => {
     });
   });
   app.get("/user/settings", checkAuth, function(req, res) {
-    res.render("./bootstrap/settings.ejs");
+    res.render("./bootstrap/user/userSettings.ejs", {
+      user: req.user,
+      isAuth: req.isAuthenticated()
+    });
   });
   app.get("/testingDash", checkAuth, function(req, res) {
     var guilds = Bot.guilds.filter(g => g.ownerID == req.user.id);

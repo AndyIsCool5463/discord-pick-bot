@@ -13,7 +13,9 @@
           <% guilds.forEach(g => {%>
           <li onclick="redirect(this.id)" id="<%- g.id %>">
             <%if(!g.iconURL) { %>
-            <div class="guildNoIcon"><span> <%- g.name %></span></div>
+            <div class="guildNoIcon">
+              <span> <%- g.name.match(/\b\w/g).join('') %></span>
+            </div>
             <br /><span class="tooltiptext"> <%- g.name %></span> <%} else {%>
             <img
               onclick="redirect(this.id)"

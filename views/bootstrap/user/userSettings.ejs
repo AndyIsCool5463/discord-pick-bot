@@ -1,0 +1,75 @@
+<html>
+  <title>PB - User Settings</title>
+  <%- include("../../EJScomp/bootstrap/nav", {user: user}); %>
+  <div class="jumbotron">
+    <h1>Welcome to <b>your</b> Dashboard</h1>
+  </div>
+  <div>
+    <h1>Your Information <sub>(Fetched at: <%- user.fetchedAt %>)</sub></h1>
+    <h5>This information is sent by Discord when signing in.</h5>
+    <section>
+      <h1>General Information</h1>
+      <table class="table">
+        <thead>
+          <td>Username</td>
+          <td>Verified</td>
+          <td>Locale</td>
+          <td>Nitro Type</td>
+          <td>Mobile Factor Authentication</td>
+          <td>Discord ID</td>
+          <td>Avatar</td>
+          <td>Discriminator</td>
+          <td>Email</td>
+          <td>Provider</td>
+          <td>Acess Token</td>
+        </thead>
+        <tbody>
+          <td><%- user.username %></td>
+          <td><%- user.verified %></td>
+          <td><%- user.locale %></td>
+          <td><%- user.premium_type %></td>
+          <td><%- user.mfa_enabled %></td>
+          <td><%- user.id %></td>
+          <td><%- user.avatar %></td>
+          <td><%- user.discriminator %></td>
+          <td><%- user.email %></td>
+          <td><%- user.provider %></td>
+          <td><%- user.accessToken %></td>
+        </tbody>
+      </table>
+      <h1>Guilds</h1>
+      <table class="table">
+        <thead>
+          <td>Guild Name</td>
+          <td>Guild Icon</td>
+          <td>Are You Owner?</td>
+          <td>Guild ID</td>
+          <td>Permissions</td>
+        </thead>
+        <tbody>
+          <% user.guilds.forEach(g => {%> <% if(!g.icon) {%>
+          <tr>
+            <td><%- g.name %></td>
+            <td>NO ICON</td>
+            <td><%- g.owner%></td>
+            <td><%- g.id%></td>
+            <td><%- g.permissions %></td>
+          </tr>
+          <%} else {%>
+          <tr>
+            <td><%- g.name %></td>
+            <td>
+              <img
+                src="https://cdn.discordapp.com/icons/<%- g.id %>/<%- g.icon %>.png?size=64"
+              />
+            </td>
+            <td><%- g.owner%></td>
+            <td><%- g.id%></td>
+            <td><%- g.permissions %></td>
+          </tr>
+          <% } %> <% })%>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</html>

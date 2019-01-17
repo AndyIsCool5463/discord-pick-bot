@@ -1,19 +1,128 @@
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
+<!-- LUL STOP LOOKING AT CODE-->
 <html>
   <%- include("./EJScomp/bootstrap/nav", {user: user}); %>
+  <title>Discord Pick Bot ⛏</title>
   <div class="jumbotron">
     <h1>Discord Pick Bot ⛏</h1>
     <p>Litterally the most useless Bot you'll ever use..</p>
   </div>
-  <div class="container">
+  <div class="subHeadCategories">
+    <ul class="menu">
+      <li onclick="selector(this.innerHTML)">Features</li>
+      <li onclick="selector(this.innerHTML)">About</li>
+      <li onclick="selector(this.innerHTML)">Github</li>
+    </ul>
+  </div>
+  <div class="LULSTOPLOOKINGATCODE jumbotron">
+    <h1>The One and Only... <var>Pick Bot</var></h1>
+    <h3>Why you should use this Bot.</h3>
+    <ul class="reasonsUL">
+      <li>
+        - Open Source <br />
+        We all <var>know</var> some Discord Bots are great and all but do we
+        know what's happening inside them?
+      </li>
+      <br />
+      <li>
+        - Custom Dashboard <br />
+        I mean come on... this one's self explanitory heh
+      </li>
+      <br />
+      <li>
+        - Many features <br />
+        <var>Many</var> Discord Bots have many features, some copy others, some
+        make unique commands or features, this Bot has multiple
+        <var>unique</var> features.
+      </li>
+      <br />
+    </ul>
+  </div>
+  <div class="container" id="Features">
     <h1>Features</h1>
     <div class="card text-center">
-      <ul>
+      <ul style="list-style: none;">
         <li>- Custom Dashboard <i class="fas fa-desktop"></i></li>
         <li>- Full use of Discord API <i class="fab fa-discord"></i></li>
         <li>- Music <i class="fas fa-music"></i></li>
         <li>- Administration / Moderation 👮</li>
         <li>And Many more!</li>
+        <li>
+          Click <a href="/doc/commands">here</a> for a full list of commands!
+        </li>
       </ul>
     </div>
   </div>
 </html>
+<script>
+  function selector(id) {
+    window.location = `#${id}`;
+  }
+</script>
+<style>
+  .subHeadCategories {
+    background: #e9ecef;
+  }
+  .guildIcon {
+    width: 35px;
+    height: 35px;
+    background-size: 35px;
+    background-position: center;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid black;
+  }
+  .guildIcon\&Info {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    font-family: Open Sans, sans-serif;
+  }
+  .menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-orient: horizontal;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: black;
+  }
+  .reasonsUL {
+    list-style: none;
+  }
+  .menu > li {
+    border: 10px solid #e9ecef;
+    padding: 20px;
+    transition: 800ms ease all;
+  }
+  .menu > li:hover {
+    cursor: pointer;
+    outline: none;
+    border-bottom-color: rgb(23, 184, 238);
+  }
+</style>
