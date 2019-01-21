@@ -1,16 +1,8 @@
 <html>
   <%- include("../../EJScomp/bootstrap/nav", {user: user}); %>
-  <div class="subheading">
-    <div class="guildIcon&Info">
-      <div
-        class="guildIcon"
-        style="background-image: url('https://cdn.discordapp.com/icons/<%- guild.id %>/<%- guild.icon %>.jpg');"
-      ></div>
-      <span> <%- guild.name %></span>
-    </div>
-    <%- include("../../EJScomp/bootstrap/secondNavDash", {user: user, guild:
-    guild}); %>
-  </div>
+  <title>PB - Experience</title>
+  <%- include("../../EJScomp/bootstrap/secondNavDash", {user: user, guild:
+  guild}); %>
   <!-- This is Default Page when they log in. The Configuration Page. It seems suitable for now but subject to change. -->
   <section class="config">
     <h1>Experience Database</h1>

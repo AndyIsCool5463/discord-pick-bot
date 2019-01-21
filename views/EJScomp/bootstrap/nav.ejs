@@ -81,6 +81,11 @@
         <li class="nav-item active">
           <a class="nav-link" href="/stats">Statistics</a>
         </li>
+        <li class="nav-item active">
+         <a class="nav-link toggle-theme" id="changebg">
+          <i class="far fa-moon" style="color: white; font-size: 24px;"></i>
+         </a> 
+        </li>
     </ul>
   </div>
 
@@ -128,8 +133,55 @@
       }, 600);
     };
   }
+  let toggle = document.querySelector('.toggle-theme');
+
+    // Turn the theme of if the 'funky' key exists in localStorage
+    if (localStorage.getItem('funky')) {
+      document.body.classList.add('funky');
+      toggle.innerHTML = '<i class="far fa-moon"></i>';
+    }
+
+    toggle.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      if (document.body.classList.contains('funky')) {
+        document.body.classList.remove('funky');
+        toggle.innerHTML = '<i class="far fa-moon"></i>';
+        localStorage.removeItem('funky');
+      } else {
+        document.body.classList.add('funky');
+        toggle.innerHTML = '<i class="far fa-moon"></i>';
+        localStorage.setItem('funky', true);
+      }
+    });
 </script>
 <style>
+
+.funky {
+  --bg: #303030;
+  --text-color: white;
+  --link-color: #B793E6;
+  --link-hover: #3532A7;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-color);
+}
+
+a, a:link {
+  color: var(--link-color);
+}
+a:hover {
+  color: var(--link-hover);
+}
+:root {
+  --bg: white;
+  --text-color: #555;
+  --link-color: #639A67;
+  --link-hover: #205D67;
+}
+
   /* width */
   ::-webkit-scrollbar {
     width: 10px;
