@@ -7,11 +7,14 @@ const colors = require("chalk");
 const app = express();
 //const port = 8080;
 const ejsLint = require("ejs-lint");
-
+const { version } = require("discord.js");
+const moment = require("moment");
+require("moment-duration-format");
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
 
 module.exports = async Bot => {
+  var user;
   console.log(colors.red(process.env.OAUTHCALLBACK));
   var scopes = [
     "identify",
@@ -77,23 +80,42 @@ module.exports = async Bot => {
     req.logout();
     res.redirect("/");
   });
-  app.get("/dashboard", checkAuth, function(req, res) {
-    var guilds = Bot.guilds.filter(g => g.ownerID == req.user.id);
-    // console.log(guilds);
-    res.render("dashboard.ejs", {
-      data: req.user,
-      guilds: guilds,
-      Bot: Bot
-    });
-  });
   app.get("/user/settings", checkAuth, function(req, res) {
     res.render("./bootstrap/user/userSettings.ejs", {
       user: req.user,
       isAuth: req.isAuthenticated()
     });
   });
-  app.get("/testingDash", checkAuth, function(req, res) {
+  app.get("/docs", function(req, res) {
+    res.render("./bootstrap/documentation.ejs", {
+      user: req.user,
+      isAuth: req.isAuthenticated()
+    });
+  });
+  app.get("/stats", (req, res) => {
+    const duration = moment
+      .duration(Bot.uptime)
+      .format(" D [days], H [hrs], m [mins], s [secs]");
+    const mem = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
+    var vars = {
+      ping: Math.round(Bot.ping) + "ms",
+      memory: mem,
+      users: Bot.users.size.toLocaleString(),
+      guildZ: Bot.guilds.size.toLocaleString(),
+      version: `v${version}`,
+      nversion: process.version,
+      uptime: duration,
+      token: req.refreshToken
+    };
+    res.render("./bootstrap/statistics.ejs", {
+      user: req.user,
+      isAuth: req.isAuthenticated(),
+      vars: vars
+    });
+  });
+  app.get("/dashboard", checkAuth, function(req, res) {
     var guilds = Bot.guilds.filter(g => g.ownerID == req.user.id);
+    user = req.user;
     res.render("./bootstrap/dashboard/home.ejs", {
       user: req.user,
       isAuth: req.isAuthenticated(),
@@ -101,7 +123,7 @@ module.exports = async Bot => {
       Bot: Bot
     });
   });
-  app.get("/testingDash/:a", checkAuth, (req, res) => {
+  app.get("/dashboard/:a", checkAuth, (req, res) => {
     var guilds = Bot.guilds.filter(g => g.ownerID == req.user.id);
     res.render(`./bootstrap/dashboard/${req.params.a}.ejs`, {
       user: req.user,
@@ -151,7 +173,10 @@ module.exports = async Bot => {
       let f = Bot.channels
         .filter(g => g.guild.id == guild && g.type == "text")
         .map(c => {
-          return c;
+          return {
+            id: c.id,
+            name: c.name
+          };
         });
       io.emit("channelsResp", {
         channels: f
@@ -245,10 +270,11 @@ module.exports = async Bot => {
         var guild = Bot.guilds.get(serverid);
         switch (funct) {
           case "broadcast":
-            res.render("broadcast.ejs", {
+            res.render("./bootstrap/dashboard/GuildOnlineMessagingPage.ejs", {
               guild: guild,
               Bot: Bot,
-              user: req.user
+              user: req.user,
+              isAuth: req.isAuthenticated()
             });
             break;
           case "kick":

@@ -1,3 +1,4 @@
+<script src="/production/js/home.js"></script>
 <html>
   <title>PB - Guild Selection</title>
   <%- include("../../EJScomp/bootstrap/nav", {user: user}); %>
@@ -5,20 +6,21 @@
     <h1 class="text-center">Pick Bot Dashboard</h1>
     <h1 class="text-center" id="welcomeMsg"></h1>
   </div>
+  <body onload="timeGreet('<%- user.username %>');"></body>
   <div class="container">
     <h1 class="text-center">SELECT SERVER</h1>
     <div class="server_ico">
       <section id="guildSelect">
         <ul class="guildSelectGuilds">
           <% guilds.forEach(g => {%>
-          <li onclick="redirect(this.id)" id="<%- g.id %>">
+          <li onclick="redirect('<%- user.id %>',this.id)" id="<%- g.id %>">
             <%if(!g.iconURL) { %>
             <div class="guildNoIcon">
               <span> <%- g.name.match(/\b\w/g).join('') %></span>
             </div>
             <br /><span class="tooltiptext"> <%- g.name %></span> <%} else {%>
             <img
-              onclick="redirect(this.id)"
+              onclick="redirect('<%- user.id %>',this.id)"
               id="<%- g.id %>"
               src="https://cdn.discordapp.com/icons/<%- g.id %>/<%- g.icon %>.png"
             />
@@ -34,34 +36,7 @@
     </div>
   </div>
 </html>
-<script>
-  function invite() {
-    window.location.href =
-      "https://discordapp.com/oauth2/authorize?client_id=525901565018767364&scope=bot&permissions=8&redirect_uri=http%3A%2F%2Flocalhost%3A80%2FtestingDash";
-  }
-  var timeGreet = function() {
-    let f = document.getElementById("welcomeMsg");
-    var today = new Date();
-    var now = today.getHours();
-    var message;
 
-    if (now < 12) {
-      message = "Good Morning";
-    } else if (now < 18) {
-      message = "Good Afternoon";
-    } else {
-      message = "Good Evening";
-    }
-    var xd = today.toLocaleTimeString();
-    var day = today.toLocaleDateString();
-    var timezone = today.getTimezoneOffset();
-    return (f.innerHTML = `${message}, <%- user.username %>`);
-  };
-  timeGreet();
-  function redirect(id) {
-    window.location.href = `/dashboard/edit/<%- user.id %>/${id}/manage`;
-  }
-</script>
 <style>
   .server_ico {
     display: table;
@@ -90,7 +65,7 @@
     border-radius: 50%;
     width: 128px;
     height: 128px;
-    align-items: center;
+    align-items: right;
   }
   .guildNoIcon > span {
     text-align: center;
@@ -110,6 +85,7 @@
   .guildSelectGuilds > li {
     padding: 30px;
     transition: 800ms ease all;
+    border: 1px solid white;
   }
   .guildSelectGuilds > li > img {
     border-radius: 50%;

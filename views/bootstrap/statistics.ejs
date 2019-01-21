@@ -1,0 +1,39 @@
+<html>
+  <%- include("../EJScomp/bootstrap/nav", {user: user}); %>
+
+  <div>
+    <div class="jumbotron">
+      <h1>Statistics for Pick Bot</h1>
+      <p>Behold all the statistics for this Bot!</p>
+    </div>
+    <div class="container">
+      <section>
+        <div class="categories">
+          <table class="table">
+            <thead>
+              <td>Guilds Hosted</td>
+              <td>Users In Guilds</td>
+              <td>Memory Usage</td>
+              <td>Uptime</td>
+              <td>Discord Ping</td>
+              <td>Discord.js Version</td>
+              <td>Node.js Version</td>
+              <td>te</td>
+            </thead>
+            <tbody>
+              <td><%- vars.guildZ %></td>
+              <td><%- vars.users %></td>
+              <td><%- vars.memory%>MB</td>
+              <td><%- vars.uptime %></td>
+              <td id="ping"><%- vars.ping %></td>
+              <td><%- vars.version %></td>
+              <td><%- vars.nversion%></td>
+              <td><%- vars.token %></td>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</html>
+<script src="/production/js/stats.js"></script>

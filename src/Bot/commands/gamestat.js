@@ -1,19 +1,39 @@
 const Discord = require("discord.js");
-const gamedig = require("gamedig");
 exports.run = async (Bot, message, args) => {
-  gamedig
-    .query(
-      {
-        type: "unturned",
-        host: "173.208.195.226:27015",
-        maxAttempts: 10
-      },
-      s => {
-        console.log(s);
-      }
-    )
-    .then(s => {
-      console.log(s);
+  const Gamedig = require("gamedig");
+  Gamedig.query({
+    type: args[0],
+    host: args[1],
+    port: args[2]
+  })
+    .then(async game => {
+      await game.players.forEach(c => {
+        return playerlist.push(c.name);
+      });
+      var playerlist = [];
+      let embed = await new Discord.RichEmbed()
+        .setAuthor("Game Stats")
+        .setTitle(game.name)
+        .setImage(
+          `https://steamcdn-a.akamaihd.net/steam/apps/${
+            game.raw.gameid
+          }/header.jpg`
+        )
+        .setColor("#FFF")
+        .addField("Game", game.raw.game)
+        .addField("Map:", game.map)
+        .addField("Require Password?", game.password)
+        .addField(`Server IP`, `steam://connect/${game.connect}`)
+        .addField("Players", playerlist)
+        .setFooter(
+          `${game.raw.numplayers} Players /${game.raw.numbots} Bots/ Max: ${
+            game.maxplayers
+          }`
+        );
+      message.channel.send(embed);
+    })
+    .catch(error => {
+      console.log("Server is offline");
     });
 };
 exports.help = {
@@ -25,5 +45,5 @@ exports.help = {
   alias: "None"
 };
 module.exports.settings = {
-  disabled: true
+  disabled: false
 };

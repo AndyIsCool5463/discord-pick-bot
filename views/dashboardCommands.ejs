@@ -49,8 +49,9 @@
           <td>Disabled</td>
         </tr>
         <% Bot.commands.forEach(c => { %>
+
         <tr>
-          <td><%= c.help.name %></td>
+          <td><%- c.help.name %></td>
           <td><%= c.help.alias %></td>
           <td><%= c.help.description %></td>
           <td><%= c.help.usage %></td>

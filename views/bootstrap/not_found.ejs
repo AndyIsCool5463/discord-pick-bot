@@ -1,4 +1,5 @@
 <!-- Created by Brandon Mathis Github: https://github.com/imathis Thank you sir for this amazing artwork!-->
+<title>Pick Bot - 404</title>
 <div class="error-banner">
   <svg xmlns="http://www.w3.org/2000/svg" width="312">
     <g id="group-1-cube-1">
@@ -281,6 +282,7 @@
   <div class="error-message">
     <h2>Not Found.</h2>
     <p><span>This page doesn't exist.</span></p>
+    <h1 id="bta" onclick="c()">Return Home.</h1>
   </div>
 </div>
 <style>
@@ -941,4 +943,23 @@
       transform: scale(1, 1);
     }
   }
+  @keyframes swapera318 {
+    0% {
+      color: #262b30;
+    }
+    100% {
+      color: #788392;
+    }
+  }
+  #bta {
+    animation: 5s ease-out 0s 1 swapera318;
+  }
+  #bta:hover {
+    cursor: pointer;
+  }
 </style>
+<script>
+  function c() {
+    window.location.href = "/";
+  }
+</script>

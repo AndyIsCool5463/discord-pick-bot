@@ -21,11 +21,16 @@
 <!-- LUL STOP LOOKING AT CODE-->
 <!-- LUL STOP LOOKING AT CODE-->
 <html>
+  <script src="/production/js/index.js"></script>
   <%- include("./EJScomp/bootstrap/nav", {user: user}); %>
   <title>Discord Pick Bot ⛏</title>
   <div class="jumbotron">
     <h1>Discord Pick Bot ⛏</h1>
     <p>Litterally the most useless Bot you'll ever use..</p>
+    <button class="inviteBtn" onclick="a();">
+      <i class="fab fa-discord" style="color:white; font-size: 32px;"></i> Add
+      to Discord
+    </button>
   </div>
   <div class="subHeadCategories">
     <ul class="menu">
@@ -74,12 +79,8 @@
     </div>
   </div>
 </html>
-<script>
-  function selector(id) {
-    window.location = `#${id}`;
-  }
-</script>
 <style>
+  @import url("https://fonts.googleapis.com/css?family=Open+Sans");
   .subHeadCategories {
     background: #e9ecef;
   }
@@ -124,5 +125,20 @@
     cursor: pointer;
     outline: none;
     border-bottom-color: rgb(23, 184, 238);
+  }
+  .inviteBtn {
+    display: block;
+    border-radius: 2px;
+    height: 50px;
+    width: 200px;
+    font-size: 18px;
+    text-align: center;
+    font-family: Open Sans;
+    background: #15aabf;
+    border: none;
+  }
+  .inviteBtn:hover {
+    background: #09d2ec;
+    cursor: pointer;
   }
 </style>

@@ -7,33 +7,33 @@ exports.run = async (Bot, message, args) => {
   if (!string) {
     string = "No Reason.";
   }
-  if (!specifiedUser) return message.reply("Mention a user to ban!");
-  if (specifiedUser.bannable === true) {
+  if (!specifiedUser) return message.reply("Mention a user to kick!");
+  if (specifiedUser.kickable === true) {
     const banningMsg = message.channel.send(
-      `Banning \` ${specifiedUser.username} \` `
+      `Kicking \` ${specifiedUser.username} \` `
     );
     const embed = await new Discord.RichEmbed()
       .setAuthor(`${specifiedUser.username}#${specifiedUser.discriminator}`)
       .setColor(randomHex())
       .setThumbnail(specifiedUser.displayAvatarURL)
-      .addField("Banned by:", message.author.username)
-      .addField("Ban Reason:", string)
+      .addField("Kicked by:", message.author.username)
+      .addField("Kick Reason:", string)
       .addField("Guild:", message.guild.name)
       .setTimestamp(new Date())
       .setFooter("F for respects.");
     await message.channel.send(embed);
-    specifiedUser.ban(string);
+    specifiedUser.kick(string);
     banningMsg.delete();
   } else {
-    return message.reply("You may not ban that person.");
+    return message.reply("You may not kick that person.");
   }
 };
 exports.help = {
-  name: "ban",
+  name: "kick",
   category: "Administration",
-  description: "Bans the user specified.",
-  usage: "ban [user]",
-  permission: "BAN_MEMBERS",
+  description: "Kicks the user.",
+  usage: "kick [MENTION_USER]",
+  permission: "KICK_MEMBERS",
   alias: "None"
 };
 module.exports.settings = {

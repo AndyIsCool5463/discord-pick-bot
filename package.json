@@ -8,7 +8,8 @@
     "dev": "next",
     "build": "next build",
     "start": "nodemon start.js",
-    "lint:ejs": "ejslint views/config.ejs"
+    "lint:ejs": "ejslint views/config.ejs",
+    "gamedig": "gamedig --type csgo 216.52.148.47 --port 27015 --debug true --maxAttempts 4 --socketTimeout 10000"
   },
   "engines": {
     "node": "9.x"
@@ -34,6 +35,7 @@
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "gamedig": "^2.0.5",
+    "moment": "^2.23.0",
     "node-fetch": "^2.3.0",
     "node-gyp": "^3.8.0",
     "opusscript": "0.0.6",
@@ -49,6 +51,7 @@
     "chalk": "^2.4.1",
     "ejs-lint": "^0.3.0",
     "fs-extra": "^7.0.1",
+    "moment-duration-format": "^2.2.2",
     "nodemon": "^1.18.9",
     "wait-for-localhost": "^2.0.1"
   }
