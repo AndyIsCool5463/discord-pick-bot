@@ -22,7 +22,7 @@ module.exports = async Bot => {
     /* 'connections', (it is currently broken) */ "guilds",
     "guilds.join"
   ];
-  server.listen(80);
+  server.listen(process.env.PORT);
   app.set("view engine", "ejs");
   app.use(express.static(__dirname + "/public"));
   passport.serializeUser(function(user, done) {
