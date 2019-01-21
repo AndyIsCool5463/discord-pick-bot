@@ -133,7 +133,7 @@
   }
 </style>
 <script>
-  var socket = io.connect("http://localhost:80");
+  var socket = io.connect("<%- env.server %>");
   function changeXP(f) {
     const g = f.value;
     if (f.id == "add") {

@@ -274,7 +274,10 @@ module.exports = async Bot => {
               guild: guild,
               Bot: Bot,
               user: req.user,
-              isAuth: req.isAuthenticated()
+              isAuth: req.isAuthenticated(),
+              env: {
+                server: process.env.server
+              }
             });
             break;
           case "kick":
@@ -313,7 +316,11 @@ module.exports = async Bot => {
               guild: guild,
               Bot: Bot,
               user: req.user,
-              isAuth: req.isAuthenticated()
+              isAuth: req.isAuthenticated(),
+              env: {
+                port: process.env.PORT,
+                server: process.env.server
+              }
             });
             break;
           case "testing":
