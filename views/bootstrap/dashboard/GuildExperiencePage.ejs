@@ -8,14 +8,8 @@
       ></div>
       <span> <%- guild.name %></span>
     </div>
-    <div class="subHeadCategories">
-      <ul class="menu">
-        <li id="config" onclick="redirect(this.id)">Configuration</li>
-        <li id="broadcast" onclick="redirect(this.id)">Broadcast Messages</li>
-        <li id="commands" onclick="redirect(this.id)">Commands</li>
-        <li id="memberlist" onclick="redirect(this.id)">Members List</li>
-      </ul>
-    </div>
+    <%- include("../../EJScomp/bootstrap/secondNavDash", {user: user, guild:
+    guild}); %>
   </div>
   <!-- This is Default Page when they log in. The Configuration Page. It seems suitable for now but subject to change. -->
   <section class="config">

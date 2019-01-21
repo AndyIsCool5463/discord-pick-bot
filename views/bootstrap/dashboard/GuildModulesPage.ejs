@@ -1,0 +1,22 @@
+<html>
+  <%- include("../../EJScomp/bootstrap/nav", {user: user}); %>
+  <title>PB - Dashboard Commands</title>
+  <%- include("../../EJScomp/bootstrap/secondNavDash", {user: user, guild:
+  guild}); %>
+  <!-- This is Default Page when they log in. The Configuration Page. It seems suitable for now but subject to change. -->
+  <section class="config">
+    <h1>Modules</h1>
+    <h4>You can customize what modules are activated for your guild here.</h4>
+    <div class="DIVmodules">
+      <h1>If you see this please return. I'll work on this later.</h1>
+    </div>
+  </section>
+</html>
+<style>
+  .modules {
+    list-style: none;
+  }
+  .modules > li {
+    padding: 100px;
+  }
+</style>

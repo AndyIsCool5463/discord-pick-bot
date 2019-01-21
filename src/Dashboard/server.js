@@ -265,7 +265,7 @@ module.exports = async Bot => {
         return f.ownerID;
       };
       if (user != guildFind()) {
-        res.send(401);
+        return res.sendStatus(401).end();
       } else {
         var guild = Bot.guilds.get(serverid);
         switch (funct) {
@@ -331,8 +331,17 @@ module.exports = async Bot => {
               isAuth: req.isAuthenticated()
             });
             break;
+          case "modules":
+            res.render("./bootstrap/dashboard/GuildModulesPage.ejs", {
+              guild: guild,
+              Bot: Bot,
+              user: req.user,
+              isAuth: req.isAuthenticated()
+            });
+            break;
           default:
             res.sendStatus(404);
+            break;
         }
       }
     }
