@@ -10,4 +10,5 @@
 
 * [Dashboard Navigation](dashboard/dashboard-navigation.md)
 * [Configuration Page](dashboard/configuration-page.md)
+* [Broadcast Messages](dashboard/broadcast-messages.md)
 
