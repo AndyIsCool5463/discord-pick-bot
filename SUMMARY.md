@@ -5,5 +5,9 @@
 ## GETTING STARTED
 
 * [README](getting-started/readme.md)
-* [Untitled](getting-started/untitled.md)
+
+## Dashboard
+
+* [Dashboard Navigation](dashboard/dashboard-navigation.md)
+* [Configuration Page](dashboard/configuration-page.md)
 
