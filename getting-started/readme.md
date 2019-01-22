@@ -6,7 +6,7 @@ description: A quick guide to set up the Bot for your guild.
 
 ## Quick Start
 
-Becoming a super hero is a fairly straight forward process:
+Setting up the bot is a fairly straight forward process:
 
 ## Initial Setup
 
