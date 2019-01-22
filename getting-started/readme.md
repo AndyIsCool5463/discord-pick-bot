@@ -43,23 +43,23 @@ You can also change the prefix this way too! `$set prefix ! will set your prefix
 You can also change the settings from the dashboard too!
 
 1. 
-![Click on Login.](../.gitbook/assets/image%20%2816%29.png)
+![Click on Login.](../.gitbook/assets/image%20%2820%29.png)
 
 2. 
 
-![Clicking Authorize will bring you to the next Page.](../.gitbook/assets/image%20%288%29.png)
+![Clicking Authorize will bring you to the next Page.](../.gitbook/assets/image%20%2810%29.png)
 
 3. 
 
-![Click on Dashboard. Now it shouldn&apos;t be grayed out because we&apos;re logged in.](../.gitbook/assets/image%20%2814%29.png)
+![Click on Dashboard. Now it shouldn&apos;t be grayed out because we&apos;re logged in.](../.gitbook/assets/image%20%2818%29.png)
 
 4. 
 
-![Find Your Server. Or Click the \`+\` to invite the Bot to one.](../.gitbook/assets/image%20%2813%29.png)
+![Find Your Server. Or Click the \`+\` to invite the Bot to one.](../.gitbook/assets/image%20%2816%29.png)
 
 5. 
 
-![and now you&apos;re in! ](../.gitbook/assets/image%20%289%29.png)
+![and now you&apos;re in! ](../.gitbook/assets/image%20%2811%29.png)
 
 You can go explore all the features the Dashboard has to offer here!
 
