@@ -132,6 +132,7 @@
     text-align: center;
   }
 </style>
+<%- include("../../EJScomp/bootstrap/customThemeLoader", {user: user}); %>
 <script>
   var socket = io.connect("<%- env.server %>");
   function changeXP(f) {

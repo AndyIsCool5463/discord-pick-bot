@@ -87,10 +87,7 @@ module.exports = async Bot => {
     });
   });
   app.get("/docs", function(req, res) {
-    res.render("./bootstrap/documentation.ejs", {
-      user: req.user,
-      isAuth: req.isAuthenticated()
-    });
+    res.redirect("https://spaghetti-coders.gitbook.io/discord-pick-bot/");
   });
   app.get("/stats", (req, res) => {
     const duration = moment

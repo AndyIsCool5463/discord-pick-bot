@@ -55,6 +55,7 @@
     </table>
   </section>
 </html>
+<%- include("../../EJScomp/bootstrap/customThemeLoader", {user: user}); %>
 <script>
   function redirect(id) {
     window.location.href = `/dashboard/edit/<%- user.id %>/<%- guild.id %>/manage/${id}`;
