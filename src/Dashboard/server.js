@@ -286,7 +286,10 @@ module.exports = async Bot => {
               guild: guild,
               Bot: Bot,
               user: req.user,
-              isAuth: req.isAuthenticated()
+              isAuth: req.isAuthenticated(),
+              env: {
+                server: process.env.server
+              }
             });
             break;
           case "kick":
@@ -301,7 +304,10 @@ module.exports = async Bot => {
             res.render("bans.ejs", {
               guild: guild,
               Bot: Bot,
-              user: req.user
+              user: req.user,
+              env: {
+                server: process.env.server
+              }
             });
             break;
           case "memberlist":
@@ -309,7 +315,10 @@ module.exports = async Bot => {
               guild: guild,
               Bot: Bot,
               user: req.user,
-              isAuth: req.isAuthenticated()
+              isAuth: req.isAuthenticated(),
+              env: {
+                server: process.env.server
+              }
             });
             break;
           case "config":
@@ -317,7 +326,10 @@ module.exports = async Bot => {
               guild: guild,
               Bot: Bot,
               user: req.user,
-              isAuth: req.isAuthenticated()
+              isAuth: req.isAuthenticated(),
+              env: {
+                server: process.env.server
+              }
             });
             break;
           case "xpsys":
