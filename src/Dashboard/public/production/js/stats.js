@@ -2,10 +2,10 @@ var g = function() {
   var c = parseInt(document.getElementById("ping").innerHTML);
   var f = document.getElementById("ping");
   console.log(c);
-  if (c <= 40) {
+  if (c <= 60) {
     f.style.color = "green";
   }
-  if (c >= 41 || c <= 99) {
+  if (c >= 61 || c <= 99) {
     f.style.color = "yellow";
   }
   if (c > 100) {
