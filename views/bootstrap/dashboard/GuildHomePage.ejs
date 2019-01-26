@@ -4,6 +4,25 @@
   <%- include("../../EJScomp/bootstrap/secondNavDash", {user: user, guild:
   guild}); %>
   <!-- This is Default Page when they log in. The Configuration Page. It seems suitable for now but subject to change. -->
+  <% Bot.serverConfig.ensure(message.guild.id, {
+    serverID: message.guild.id,
+    prefix: "$",
+    welcomeMessageEnabled: true,
+    xpSystem: true,
+    queue: {},
+    welcomeChannel: "None",
+    twitchStream: [],
+    customCommands: [
+      {
+        name: "test1",
+        msg: "test1Resp"
+      },
+      {
+        name: "test2",
+        msg: "test2Resp"
+      }
+    ]
+  });%>
   <section class="config">
     <h1>Configuration</h1>
     <p>
