@@ -14,6 +14,11 @@ var server = require("http").Server(app);
 var io = require("socket.io")(server);
 
 module.exports = async Bot => {
+  function fetchTime() {
+    return (duration = moment
+      .duration(Bot.uptime)
+      .format(" D [days], H [hrs], m [mins], s [secs]"));
+  }
   var user;
   console.log(colors.red(process.env.OAUTHCALLBACK));
   var scopes = [
@@ -90,9 +95,6 @@ module.exports = async Bot => {
     res.redirect("https://spaghetti-coders.gitbook.io/discord-pick-bot/");
   });
   app.get("/stats", (req, res) => {
-    const duration = moment
-      .duration(Bot.uptime)
-      .format(" D [days], H [hrs], m [mins], s [secs]");
     const mem = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
     var vars = {
       ping: Math.round(Bot.ping) + "ms",
@@ -101,8 +103,11 @@ module.exports = async Bot => {
       guildZ: Bot.guilds.size.toLocaleString(),
       version: `v${version}`,
       nversion: process.version,
-      uptime: duration,
-      token: req.refreshToken
+      uptime: fetchTime(),
+      env: {
+        port: process.env.PORT,
+        server: process.env.server
+      }
     };
     res.render("./bootstrap/statistics.ejs", {
       user: req.user,
@@ -132,6 +137,16 @@ module.exports = async Bot => {
   io.on("connection", function(socket) {
     socket.on("news", data => {
       console.log(data);
+    });
+    socket.on("fetchTime", d => {
+      io.emit("returnTime", {
+        time: fetchTime()
+      });
+    });
+    socket.on("fetchPing", d => {
+      io.emit("returnPing", {
+        time: Math.round(Bot.ping) + "ms"
+      });
     });
     socket.on("GETIDGUILD", data => {
       console.log(data);
@@ -271,10 +286,7 @@ module.exports = async Bot => {
               guild: guild,
               Bot: Bot,
               user: req.user,
-              isAuth: req.isAuthenticated(),
-              env: {
-                server: process.env.server
-              }
+              isAuth: req.isAuthenticated()
             });
             break;
           case "kick":

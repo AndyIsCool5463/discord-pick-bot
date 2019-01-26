@@ -11,24 +11,22 @@
         <div class="categories">
           <table class="table">
             <thead>
-              <td>Guilds Hosted</td>
+              <td id="special" value="<%- vars.env.server %>">Guilds Hosted</td>
               <td>Users In Guilds</td>
               <td>Memory Usage</td>
               <td>Uptime</td>
               <td>Discord Ping</td>
               <td>Discord.js Version</td>
               <td>Node.js Version</td>
-              <td>te</td>
             </thead>
             <tbody>
               <td><%- vars.guildZ %></td>
               <td><%- vars.users %></td>
               <td><%- vars.memory%>MB</td>
-              <td><%- vars.uptime %></td>
-              <td id="ping"><%- vars.ping %></td>
+              <td id="uptime"><%- vars.uptime %></td>
+              <td id="ping" value="<%- vars.ping %>"><%- vars.ping %></td>
               <td><%- vars.version %></td>
               <td><%- vars.nversion%></td>
-              <td><%- vars.token %></td>
             </tbody>
           </table>
         </div>
