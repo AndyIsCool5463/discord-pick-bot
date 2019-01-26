@@ -2,19 +2,18 @@ var g = function() {
   var c = parseInt(document.getElementById("ping").innerHTML);
   var f = document.getElementById("ping");
   console.log(c);
-  if (c <= 40) {
+  if (c <= 60) {
+    console.log("SHOULD BE GREEN");
     f.style.color = "green";
-  }
-  if (c >= 61 || c <= 99) {
-    f.style.color = "yellow";
-  }
-  if (c > 100) {
-    f.style.color = "red";
+  } else if (c >= 62 && c <= 99) {
+    console.log("SHOULD BE YELLOW");
+    return (f.style.color = "yellow");
+  } else {
+    console.log("SHOULD BE RED");
+    return (f.style.color = "red");
   }
 };
-g();
-ping();
-fetchtime();
+
 // Init timer
 function fetchtime() {
   var e = document.getElementById("special").value;
@@ -43,3 +42,6 @@ function ping() {
     socket.emit("fetchPing");
   }
 }
+g();
+ping();
+fetchtime();
