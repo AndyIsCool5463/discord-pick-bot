@@ -8,6 +8,8 @@
 
 [![Discord.js](https://badge.fury.io/js/discord.js.svg)](https://badge.fury.io/js/discord.js)
 
+[![Discord Server](https://discordapp.com/api/guilds/526521525692530741/widget.png)](https://discord.gg/DshC5wd)
+
 - Another bot for Discord but maybe not like the others!
 - The default prefix is "\$"
 - For more info use the "\$help" command to find anything you need!
