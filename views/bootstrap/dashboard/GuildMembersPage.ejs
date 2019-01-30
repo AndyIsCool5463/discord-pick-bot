@@ -76,7 +76,7 @@
             <button
               class="btn btn-danger"
               id="bannr"
-              onclick="ab('<%- m.id %>')"
+              onclick="ab('<%- m.id %>','<%- m.user.username %>')"
             >
               Ban
             </button>
@@ -108,8 +108,12 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body" style="color: #6d6d6d">
-                    Are sure you want to ban, <%- m.user.username %>?
+                  <div
+                    class="modal-body"
+                    style="color: #6d6d6d"
+                    id="areyouSureBan"
+                  >
+                    Loading . . .
                   </div>
                   <div class="modal-footer">
                     <button
@@ -123,7 +127,6 @@
                       type="button"
                       class="btn btn-danger"
                       data-dismiss="modal"
-                      id="<%- m.id %>"
                       onclick="ban(document.getElementById('abben').value)"
                     >
                       Ban
@@ -143,6 +146,7 @@
     hidden
     data-toggle="modal"
     data-target="#exampleModal"
+    onclick="a7()"
   ></button>
 </html>
 <%- include("../../EJScomp/bootstrap/customThemeLoader", {user: user}); %>
@@ -151,9 +155,21 @@
   function redirect(id) {
     window.location.href = `/dashboard/edit/<%- user.id %>/<%- guild.id %>/manage/${id}`;
   }
-  function ab(ah) {
+  function ab(ah, yb) {
+    console.log(yb);
     document.getElementById("abben").click();
     document.getElementById("abben").setAttribute("value", ah);
+    document.getElementById("abben").setAttribute("name", yb);
+  }
+  function a7() {
+    setTimeout(ahu, 500);
+  }
+  function ahu() {
+    document.getElementById(
+      "areyouSureBan"
+    ).innerText = `Are you sure you want to ban, ${document
+      .getElementById("abben")
+      .getAttribute("name")}`;
   }
   socket.on("banned", d => {
     $(`#${d.info}`).removeAttr("hidden");
