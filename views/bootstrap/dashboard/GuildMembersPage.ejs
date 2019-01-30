@@ -75,10 +75,8 @@
           <td>
             <button
               class="btn btn-danger"
-              id="banner"
-              data-toggle="modal"
-              data-target="#exampleModal"
-              value="<%- m.id %>"
+              id="bannr"
+              onclick="ab('<%- m.id %>')"
             >
               Ban
             </button>
@@ -124,7 +122,9 @@
                     <button
                       type="button"
                       class="btn btn-danger"
-                      onclick="ban('<%- m.id %>')"
+                      data-dismiss="modal"
+                      id="<%- m.id %>"
+                      onclick="ban(document.getElementById('abben').value)"
                     >
                       Ban
                     </button>
@@ -138,6 +138,12 @@
       </tbody>
     </table>
   </section>
+  <button
+    id="abben"
+    hidden
+    data-toggle="modal"
+    data-target="#exampleModal"
+  ></button>
 </html>
 <%- include("../../EJScomp/bootstrap/customThemeLoader", {user: user}); %>
 <script>
@@ -145,11 +151,12 @@
   function redirect(id) {
     window.location.href = `/dashboard/edit/<%- user.id %>/<%- guild.id %>/manage/${id}`;
   }
-  function asd(a) {
-    $(`#${a}`).removeAttr("hidden");
+  function ab(ah) {
+    document.getElementById("abben").click();
+    document.getElementById("abben").setAttribute("value", ah);
   }
   socket.on("banned", d => {
-    asd(d.info);
+    $(`#${d.info}`).removeAttr("hidden");
   });
   function ban(id) {
     socket.emit("ban", {

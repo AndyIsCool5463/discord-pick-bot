@@ -212,10 +212,16 @@ module.exports = async Bot => {
           .ban(ripThisPerson, {
             reason: "Banned on admin dashboard."
           })
-          .then(u => {
-            io.emit("banned", {
-              info: "suc"
-            });
+          .catch(e => {
+            if (e) {
+              return io.emit("banned", {
+                info: "dang"
+              });
+            } else {
+              io.emit("banned", {
+                info: "suc"
+              });
+            }
           });
       } else {
         return io.emit("banned", {
