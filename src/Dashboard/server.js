@@ -12,7 +12,9 @@ const moment = require("moment");
 require("moment-duration-format");
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
-
+var route = require("./routes/route");
+var login = require("./routes/login");
+var admins = require("./functions/admins.js");
 module.exports = async Bot => {
   function fetchTime() {
     return (duration = moment
@@ -62,13 +64,8 @@ module.exports = async Bot => {
   );
   app.use(passport.initialize());
   app.use(passport.session());
-  app.get("/", (req, res) => {
-    console.log(req.isAuthenticated());
-    res.render("index.ejs", {
-      isAuth: req.isAuthenticated(),
-      user: req.user
-    }); //  { isAuth: req.isAuthenticated() }
-  });
+
+  app.use("/", route);
   app.get(
     "/login",
     passport.authenticate("discord", { scope: scopes }),
@@ -81,6 +78,15 @@ module.exports = async Bot => {
       res.redirect("/");
     } // auth success
   );
+  app.get("/adb", (req, res) => {
+    if (!req.user) return res.redirect("/not-found");
+    if (req.user.id != "201825529333153792") return res.redirect("/not-found");
+    if (req.user.id == "201825529333153792")
+      return res.render("./bootstrap/admin/db.ejs", {
+        user: req.user,
+        isAuth: req.isAuthenticated()
+      });
+  });
   app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/");
@@ -208,11 +214,13 @@ module.exports = async Bot => {
           })
           .then(u => {
             io.emit("banned", {
-              bannedUser: u
+              info: "suc"
             });
           });
       } else {
-        return io.emit("401");
+        return io.emit("banned", {
+          info: "dang"
+        });
       }
     });
   });

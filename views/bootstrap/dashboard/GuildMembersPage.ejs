@@ -5,6 +5,38 @@
   guild}); %>
   <!-- This is Default Page when they log in. The Configuration Page. It seems suitable for now but subject to change. -->
   <section class="config">
+    <div
+      class="alert alert-success alert-dismissible fade show"
+      id="suc"
+      hidden
+      role="alert"
+    >
+      Success! They have been banned!
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div
+      class="alert alert-danger alert-dismissible fade show"
+      id="dang"
+      hidden
+      role="alert"
+    >
+      Alert! I couldn't ban the user!
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
     <h1>Members List</h1>
     <p>
       This is your configuration Channel for the guild:
@@ -43,11 +75,63 @@
           <td>
             <button
               class="btn btn-danger"
-              onclick="ban(this.id)"
-              id="<%- m.id %>"
+              id="banner"
+              data-toggle="modal"
+              data-target="#exampleModal"
+              value="<%- m.id %>"
             >
               Ban
             </button>
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="exampleModal"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5
+                      class="modal-title"
+                      id="exampleModalLabel"
+                      style="color: #6d6d6d"
+                    >
+                      Are you sure?
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" style="color: #6d6d6d">
+                    Are sure you want to ban, <%- m.user.username %>?
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      onclick="ban('<%- m.id %>')"
+                    >
+                      Ban
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </td>
         </tr>
         <% }); %>
@@ -57,8 +141,22 @@
 </html>
 <%- include("../../EJScomp/bootstrap/customThemeLoader", {user: user}); %>
 <script>
+  var socket = io.connect("<%- env.server %>");
   function redirect(id) {
     window.location.href = `/dashboard/edit/<%- user.id %>/<%- guild.id %>/manage/${id}`;
+  }
+  function asd(a) {
+    $(`#${a}`).removeAttr("hidden");
+  }
+  socket.on("banned", d => {
+    asd(d.info);
+  });
+  function ban(id) {
+    socket.emit("ban", {
+      ban: id,
+      userBanning: "<%- user.id %>",
+      guild: "<%- guild.id %>"
+    });
   }
 </script>
 

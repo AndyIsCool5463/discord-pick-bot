@@ -1,0 +1,33 @@
+<html>
+  <%- include("../../EJScomp/bootstrap/nav", {user: user}); %>
+  <div class="wrap">
+    <div class="jumbotron"><h1>Bot Owner Dashboard</h1></div>
+    <div>
+      <ul class="containerList">
+        <li>
+          <div class="container" style="background: green;">
+            <h1>Statistics</h1>
+          </div>
+        </li>
+        <li>
+          <div class="container"><h1>Modification</h1></div>
+        </li>
+        <li>
+          <div class="container"><h1>Lorem Lipsum</h1></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</html>
+<style>
+  .containerList {
+    display: inline;
+    justify-content: center;
+    list-style: none;
+  }
+  .containerList > li {
+    padding-left: 40px;
+    float: left;
+  }
+</style>
+<%- include("../../EJScomp/bootstrap/customThemeLoader", {user: user}); %>

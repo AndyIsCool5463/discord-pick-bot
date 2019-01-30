@@ -61,3 +61,6 @@ typings/
 
 # next.js build output
 .next
+data/enmap.sqlite-shm
+data/enmap.sqlite-shm
+data/enmap.sqlite-wal
