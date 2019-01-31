@@ -388,6 +388,10 @@ module.exports = async Bot => {
       }
     }
   );
+  /* 
+  JSON ENDPOINTS
+  */
+
   app.get("*", function(req, res) {
     res.render("./bootstrap/not_found.ejs");
   });

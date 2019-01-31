@@ -162,14 +162,14 @@
     document.getElementById("abben").setAttribute("name", yb);
   }
   function a7() {
-    setTimeout(ahu, 500);
+    setTimeout(ahu, 100);
   }
-  function ahu() {
+  async function ahu() {
     document.getElementById(
       "areyouSureBan"
     ).innerText = `Are you sure you want to ban, ${document
       .getElementById("abben")
-      .getAttribute("name")}`;
+      .getAttribute("name")}?`;
   }
   socket.on("banned", d => {
     $(`#${d.info}`).removeAttr("hidden");
