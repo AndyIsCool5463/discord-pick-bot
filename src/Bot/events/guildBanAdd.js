@@ -3,7 +3,7 @@ module.exports = (Bot, guild, user) => {
   Bot.bans.ensure(guild.id, []);
   Bot.bans.push(guild.id, user.id);
   Bot.serverConfig.ensure(guild.id, {
-    serverID: message.guild.id,
+    serverID: guild.id,
     prefix: "$",
     welcomeMessageEnabled: true,
     xpSystem: true
@@ -11,9 +11,14 @@ module.exports = (Bot, guild, user) => {
 
   const embed = new Discord.RichEmbed()
     .setAuthor("Ban Manager")
-    .setDescription("A user has been banned.");
-  if (Bot.serverConfig.get(guild.id, "mod-log")) {
-    const id = Bot.serverConfig.get(guild.id, "mod-log");
-    Bot.channels.find(f => f.id == id).send(embed);
-  }
+    .setImage(user.displayAvatarURL)
+    .setDescription(
+      `${user.username}#${user.discriminator} has been banned from ${
+        guild.name
+      }.`
+    );
+  if (!Bot.serverConfig.has(guild.id, "modlog"))
+    return console.log("They litterally have no mod-log channel..??????");
+  const id = Bot.serverConfig.get(guild.id, "modlog");
+  Bot.channels.get(id).send(embed);
 };
