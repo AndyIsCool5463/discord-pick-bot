@@ -178,6 +178,11 @@ module.exports = async Bot => {
       if (guildServer != d.userID) return;
       Bot.xpDB.math(key, "+", d.xp, "points");
     });
+    socket.on("changePrefix", d => {
+      var g = Bot.guilds.get(d.guild);
+      if (g.ownerID != d.user) return;
+      Bot.serverConfig.setProp(d.guild, "prefix", d.prefix);
+    });
     socket.on("subXP", d => {
       console.log(d);
       if (d.xp === null) return;

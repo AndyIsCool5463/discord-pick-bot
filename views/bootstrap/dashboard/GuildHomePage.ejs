@@ -18,9 +18,13 @@
     <table class="table">
       <thead>
         <tr>
-          <td class="config" id="id" onclick="openMenu(this)">Server ID</td>
-          <td class="config" id="prefix" onclick="openMenu(this)">Prefix</td>
-          <td class="config" id="welmsg" onclick="openMenu(this)">
+          <td
+            class="config"
+            id="id">
+            Server ID
+          </td>
+          <td class="config" id="prefix" data-toggle="modal"data-target="#openMenu" data-book-id="Prefix">Prefix</td>
+          <td class="config" id="welmsg">
             Welcome MSG enabled?
           </td>
           <td class="config" id="xpSys" onclick="openMenu(this)">
@@ -30,7 +34,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr id="aha">
           <td><%- Bot.serverConfig.get(guild.id, "serverID")%></td>
           <td><%- Bot.serverConfig.get(guild.id, "prefix")%></td>
           <td><%- Bot.serverConfig.get(guild.id, "welcomeMessageEnabled")%></td>
@@ -44,8 +48,63 @@
       </tbody>
     </table>
   </section>
+  <div
+    class="modal fade bd-example-modal-sm"
+    tabindex="-1"
+    role="dialog"
+    id="openMenu"
+    aria-labelledby="mySmallModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="m-title" style="color: #6d6d6d">
+            Are you sure?
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="color: #6d6d6d" id="m-body">
+          Loading . . .
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-success" data-dismiss="modal"
+            onclick="changePrefix(document.getElementById('newPrefix'))">
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
 </html>
 <script>
+ var socket = io.connect("<%- env.server %>");
+  function changePrefix(p) {
+  if(!p.value) {
+    return;
+  } else {
+    socket.emit("changePrefix", {
+      guild: `<%- guild.id %>`,
+      user: `<%- user.id %>`,
+      prefix: p.value
+    });
+    window.location.reload();
+  }
+  }
+  $("#openMenu").on("show.bs.modal", function (e) {
+      var bookId = $(e.relatedTarget).data("book-id");
+      if(bookId === "Prefix") {
+        $(e.currentTarget).find("#m-body").text("");
+        $(e.currentTarget).find("#m-body").append("<input value=\"LUL \" id=\"newPrefix\"></input>")
+      }
+      $(e.currentTarget)
+        .find("#m-title")
+        .text(`Change ${bookId}`);
+    });
   function openMenu() {
     document.getElementById("myForm").style.display = "block";
   }
@@ -67,7 +126,9 @@
     right: 28px;
     width: 280px;
   }
-
+  #aha > td {
+    text-align: center;
+  }
   /* The popup form - hidden by default */
   .form-popup {
     display: none;
@@ -77,7 +138,10 @@
     border: 3px solid #f1f1f1;
     z-index: 9;
   }
-
+  #prefix:hover {
+    cursor: pointer;
+    color: grey;
+  }
   /* Add styles to the form container */
   .form-container {
     max-width: 300px;

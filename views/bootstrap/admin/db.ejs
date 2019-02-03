@@ -3,6 +3,38 @@
   <div class="wrap">
     <div class="jumbotron"><h1>Bot Owner Dashboard</h1></div>
     <div>
+      <a data-target="#my_modal" data-toggle="modal" data-book-id="my_ida_value"
+        >Open Modal</a
+      >
+
+      <div class="modal fade" id="my_modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span
+                ><span class="sr-only">Close</span>
+              </button>
+              <h4 class="modal-title" id="asd">Modal header</h4>
+            </div>
+            <div class="modal-body">
+              <p>some content</p>
+              <input type="text" name="bookId" value="" />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
       <ul class="containerList">
         <li>
           <div class="container" style="background: green;">
@@ -19,6 +51,15 @@
     </div>
   </div>
 </html>
+<script>
+  $("#my_modal").on("show.bs.modal", function(e) {
+    var bookId = $(e.relatedTarget).data("book-id");
+    $(e.currentTarget)
+      .find("#asd")
+      .text(bookId);
+  });
+</script>
+
 <style>
   .containerList {
     display: inline;

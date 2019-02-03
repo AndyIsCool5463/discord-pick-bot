@@ -58,7 +58,13 @@
       <tbody>
         <% guild.members.map(m => { %>
         <tr>
-          <td><%- m.user.username %></td>
+          <td
+            data-toggle="modal"
+            data-target="#userInfoModal"
+            data-book-id="<%- m %>"
+          >
+            <%- m.user.username %>
+          </td>
           <td>
             <img
               src="https://cdn.discordapp.com/avatars/<%- m.id %>/<%- m.user.avatar %>.png?size=32"
@@ -151,6 +157,12 @@
 </html>
 <%- include("../../EJScomp/bootstrap/customThemeLoader", {user: user}); %>
 <script>
+  $("#userInfoModal").on("show.bs.modal", function(e) {
+    var bookId = $(e.relatedTarget).data("book-id");
+    $(e.currentTarget)
+      .find("#userTitle")
+      .text(`User Info for: ${bookId}`);
+  });
   var socket = io.connect("<%- env.server %>");
   function redirect(id) {
     window.location.href = `/dashboard/edit/<%- user.id %>/<%- guild.id %>/manage/${id}`;

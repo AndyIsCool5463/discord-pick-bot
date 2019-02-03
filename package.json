@@ -8,7 +8,7 @@
     "dev": "next",
     "build": "next build",
     "start": "nodemon start.js",
-    "lint:ejs": "ejslint views/config.ejs",
+    "lint:ejs": "ejslint views/bootstrap/dashboard/GuildHomePage.ejs",
     "gamedig": "gamedig --type csgo 216.52.148.47 --port 27015 --debug true --maxAttempts 4 --socketTimeout 10000"
   },
   "engines": {
