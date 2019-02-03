@@ -24,12 +24,6 @@ exports.run = async (Bot, message, args) => {
       ? message.author.username.substring(0, 17) + "..."
       : message.author.username;
 
-  await message.channel.send(
-    new Attachment(
-      await profile(message.author, Bot.xpDB.get(key)),
-      `profile-${message.author.id}.jpg`
-    )
-  );
   async function profile(member, score) {
     return (
       new Canvas(400, 180)
@@ -75,6 +69,12 @@ exports.run = async (Bot, message, args) => {
         .toBufferAsync()
     );
   }
+  await message.channel.send(
+    new Attachment(
+      await profile(message.author, Bot.xpDB.get(key)),
+      `profile-${message.author.id}.jpg`
+    )
+  );
 };
 exports.help = {
   name: "rank",

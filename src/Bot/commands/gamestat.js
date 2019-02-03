@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 exports.run = async (Bot, message, args) => {
+  var playerlist = [];
   const Gamedig = require("gamedig");
   Gamedig.query({
     type: args[0],
@@ -10,7 +11,6 @@ exports.run = async (Bot, message, args) => {
       await game.players.forEach(c => {
         return playerlist.push(c.name);
       });
-      var playerlist = [];
       let embed = await new Discord.RichEmbed()
         .setAuthor("Game Stats")
         .setTitle(game.name)
