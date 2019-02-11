@@ -1,7 +1,3 @@
----
-description: Dashboard Navagation
----
-
 # Dashboard Navigation
 
 ## Pretty simple.
@@ -10,7 +6,7 @@ I tried to keep the navigation bar as simple as possible, but at the same time k
 
 ## Here's what it usually looks like.
 
-![](../.gitbook/assets/image%20%2821%29.png)
+![](../.gitbook/assets/image%20%2823%29.png)
 
 ## The Breakdown.
 
@@ -25,7 +21,7 @@ The Configuration, Broadcast Messages, Commands . . . are navigation links, thos
 
 Hovering over one of them will make the one selected have a blue underline. Like this.
 
-![Blue Outline. Neat.](../.gitbook/assets/image%20%2819%29.png)
+![Blue Outline. Neat.](../.gitbook/assets/image%20%2820%29.png)
 
 And that's all! Its that simple!
 

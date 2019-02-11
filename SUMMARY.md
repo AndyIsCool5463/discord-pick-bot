@@ -4,7 +4,7 @@
 
 ## GETTING STARTED
 
-* [README](getting-started/readme.md)
+* [README](getting-started/getting-started.md)
 
 ## Dashboard
 
@@ -12,4 +12,5 @@
 * [Configuration Page](dashboard/configuration-page.md)
 * [Broadcast Messages](dashboard/broadcast-messages.md)
 * [Members List](dashboard/members-list.md)
+* [Dark Mode](dashboard/dark-mode.md)
 

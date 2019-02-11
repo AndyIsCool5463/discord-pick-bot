@@ -1,7 +1,3 @@
----
-description: 'Once you have chosen your guild, you''ll be greeted with this page.'
----
-
 # Configuration Page
 
 ## What do all these things do??
@@ -10,7 +6,7 @@ Its relatively simple.
 
 What you see:
 
-![](../.gitbook/assets/image%20%2822%29.png)
+![](../.gitbook/assets/image%20%2824%29.png)
 
 ## The Breakdown
 

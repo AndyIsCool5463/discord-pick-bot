@@ -1,7 +1,3 @@
----
-description: A quick guide to set up the Bot for your guild.
----
-
 # README
 
 ## Quick Start
@@ -43,7 +39,7 @@ You can also change the prefix this way too! `$set prefix ! will set your prefix
 You can also change the settings from the dashboard too!
 
 1. 
-![Click on Login.](../.gitbook/assets/image%20%2820%29.png)
+![Click on Login.](../.gitbook/assets/image%20%2822%29.png)
 
 2. 
 

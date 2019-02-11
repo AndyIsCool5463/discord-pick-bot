@@ -10,7 +10,7 @@ The XP Link redirects you to the Experience Manager.
 
 ![Clicking on it will redirect you.](../.gitbook/assets/image%20%287%29.png)
 
-![](../.gitbook/assets/image%20%2824%29.png)
+![](../.gitbook/assets/image%20%2826%29.png)
 
 ## Experience Database Breakdown
 
