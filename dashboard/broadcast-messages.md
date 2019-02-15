@@ -1,7 +1,3 @@
----
-description: One of the pages.
----
-
 # Broadcast Messages
 
 ## What is this?
