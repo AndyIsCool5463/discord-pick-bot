@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 0",
     "dev": "next",
     "build": "next build",
-    "start": "NODE_ENV=production && nodemon start.js",
+    "start": "nodemon start.js",
     "lint:ejs": "ejslint views/bootstrap/dashboard/GuildHomePage.ejs",
     "gamedig": "gamedig --type csgo 216.52.148.47 --port 27015 --debug true --maxAttempts 4 --socketTimeout 10000"
   },

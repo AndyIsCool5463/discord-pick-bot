@@ -99,12 +99,13 @@
       var bookId = $(e.relatedTarget).data("book-id");
       if(bookId === "Prefix") {
         $(e.currentTarget).find("#m-body").text("");
-        $(e.currentTarget).find("#m-body").append("<input value=\"LUL \" id=\"newPrefix\"></input>")
+        $(e.currentTarget).find("#m-body").append("<input placeholder=\"$\" id=\"newPrefix\"></input>")
       }
       $(e.currentTarget)
         .find("#m-title")
         .text(`Change ${bookId}`);
     });
+    
   function openMenu() {
     document.getElementById("myForm").style.display = "block";
   }
