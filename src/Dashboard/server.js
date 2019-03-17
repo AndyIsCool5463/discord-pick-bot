@@ -14,6 +14,7 @@ var server = require("http").Server(app);
 var io = require("socket.io")(server);
 var route = require("./routes/route");
 var login = require("./routes/login");
+var cors = require("cors");
 var admins = require("./functions/admins.js");
 module.exports = async Bot => {
   function fetchTime() {
@@ -29,6 +30,7 @@ module.exports = async Bot => {
     /* 'connections', (it is currently broken) */ "guilds",
     "guilds.join"
   ];
+  app.use(cors());
   server.listen(process.env.PORT);
   app.set("view engine", "ejs");
   app.use(express.static(__dirname + "/public"));
@@ -396,7 +398,89 @@ module.exports = async Bot => {
   /* 
   JSON ENDPOINTS
   */
+  app.get("/endpoints/lipsum/isAuth", function(req, res) {
+    res.json({
+      status: 200,
+      message: "Success."
+    });
+  });
+  app.get("/endpoints/config/:id", function(req, res) {
+    var id = req.params.id;
+    if (!id) return res.sendStatus(400);
+  });
+  app.get("/endpoints/misc/servers/:id", async function(req, res) {
+    var id = req.params.id;
+    if (!id)
+      return res.json({
+        status: 400,
+        message: "Forbidden"
+      });
 
+    var guilds = await ha(id);
+    res.json({
+      data: guilds
+    });
+  });
+  async function ha(id) {
+    var guilds = [];
+    await Bot.guilds
+      .filter(c => c.ownerID == id)
+      .map(async c => {
+        await guilds.push({
+          guild: c,
+          memberCount: c.memberCount
+        });
+      });
+    return guilds;
+  }
+  app.get("/endpoints/servers/misc/:id", async (req, res) => {
+    var id = req.params.id;
+    var guild = Bot.guilds.find(g => g.id === id);
+    var r = [];
+    function nanins(aid) {
+      Bot.xpDB.ensure(`${id}-${aid}`, {
+        user: aid,
+        guild: id,
+        points: 0,
+        level: 0
+      });
+      return Bot.xpDB.get(`${id}-${aid}`, "points");
+    }
+    guild.members.map(async (c, i) => {
+      console.log("psuhing");
+      return r.push({
+        username: c.user.username,
+        id: c.user.id,
+        xp: nanins(c.user.id)
+      });
+    });
+    function yeeters(aids) {
+      const filtered = Bot.xpDB.filter(p => p.guild === id).array();
+
+      // Sort it to get the top results... well... at the top. Y'know.
+      const sorted = filtered.sort((a, b) => b.points - a.points);
+
+      // Slice it, dice it, get the top 10 of it!
+      const top10 = sorted.splice(0, 10);
+      //  return top10;
+      var newA = [];
+      top10.forEach((c, i) => {
+        console.log(c);
+        newA.push({
+          username: Bot.users.get(c.user).username,
+          id: c.user,
+          xp: c.points,
+          level: c.level,
+          guild: c.guild
+        });
+      });
+      return newA;
+    }
+    res.json({
+      data: r,
+      top10: yeeters()
+    });
+  });
   app.get("*", function(req, res) {
     res.render("./bootstrap/not_found.ejs");
   });

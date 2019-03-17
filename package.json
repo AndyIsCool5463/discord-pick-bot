@@ -28,6 +28,7 @@
     "better-sqlite-pool": "^0.2.0",
     "canvas": "github:Automattic/node-canvas#92b192447e9b9ae98da0f801e4e34afdd1dc1ef8",
     "canvas-constructor": "^2.1.1",
+    "cors": "^2.8.5",
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
     "ejs": "^2.6.1",

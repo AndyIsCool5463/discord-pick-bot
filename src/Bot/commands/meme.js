@@ -32,7 +32,7 @@ exports.run = async (Bot, message, args) => {
   }
 };
 exports.help = {
-  name: "meme",
+  name: "memes",
   category: "Misc",
   description: "Fetches memes from r/dankmemes",
   usage: "meme",
