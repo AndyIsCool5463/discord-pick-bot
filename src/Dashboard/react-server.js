@@ -1,44 +1,48 @@
-const express = require("express");
-var session = require("express-session"),
-  passport = require("passport"),
-  Strategy = require("passport-discord/lib").Strategy;
-const checkAuth = require("./functions/checkAuth.js");
-const colors = require("chalk");
-const app = express();
-let port = 80;
-const { version } = require("discord.js");
+const { GraphQLServer } = require("graphql-yoga");
+const resolvers = require("./resolvers/resolver");
 module.exports = async Bot => {
-  /* 
-    JSON ENDPOINTS
-    */
-  app.get("/user/:userid/:guildid/info", function(req, res) {
-    var params = req.params;
-    var isOwner;
-    try {
-      assfs = Bot.guilds.find("id", params.guildid);
-      console.log(assfs);
-      isOwner = assfs.ownerID;
-    } catch (e) {
-      return console.log(e);
-    }
-    if (params.userid == isOwner) {
-      try {
-        var user = {
-          status: {
-            code: "200"
-          },
-          info: {
-            username: Bot.users.get(params.userid).username,
-            discriminator: Bot.users.get(params.userid).discriminator
+  const resolvers = {
+    Query: {
+      fetchTop10Chatters: (parent, args) => {
+        const id = args.guildID;
+        const filtered = Bot.xpDB.filter(p => p.guild === id).array();
+
+        // Sort it to get the top results... well... at the top. Y'know.
+        const sorted = filtered.sort((a, b) => b.points - a.points);
+
+        // Slice it, dice it, get the top 10 of it!
+        const top10 = sorted.splice(0, 10);
+        //  return top10;
+        var newA = [];
+        var a = u => {
+          console.log(u);
+          try {
+            return Bot.users.find(c => c.id === u).username;
+          } catch (e) {
+            console.log("YEETerror:" + e);
+            //   Bot.xpDB.delete(`497946723868737567-${u}`);
           }
         };
-      } catch (e) {
-        console.log(e);
+        top10.forEach((c, i) => {
+          newA.push({
+            username: a(c.user),
+            id: c.user,
+            xp: c.points,
+            level: c.level,
+            guild: c.guild
+          });
+        });
+        console.log("NEW A");
+        console.log(newA);
+        return newA;
       }
-    } else {
-      res.json(401, "Not Authorized");
-    }
-    res.json(user);
+    },
+    Mutation: {}
+  };
+  // 3
+  const server = new GraphQLServer({
+    typeDefs: "./schema.graphql",
+    resolvers
   });
-  app.listen(port, () => console.log(`Dashboard listening on port ${port}!`));
+  server.start(() => console.log(`Server is running on http://localhost:4000`));
 };

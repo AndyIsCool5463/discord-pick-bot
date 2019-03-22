@@ -6,7 +6,7 @@ const Bot = new Discord.Client({
   disabledEvents: ["TYPING_START"]
 });
 const initdb = require("./functions/initalizeDatabases.js");
-const initServer = require("../Dashboard/server");
+const initServer = require("../Dashboard/react-server");
 Bot.login(process.env.TOKEN); // log bot in
 
 module.exports = async () => {

@@ -1,0 +1,13 @@
+type Query {
+  fetchTop10Chatters(guildID: String!): [Top10!]!
+}
+type Mutation {
+  fetcopT(guildID: String!): Top10!
+}
+type Top10 {
+  username: String!
+  id: String!
+  xp: Int!
+  level: Int!
+  guild: String!
+}
