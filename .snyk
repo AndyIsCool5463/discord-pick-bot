@@ -10,3 +10,25 @@ patch:
         patched: '2019-07-04T06:37:45.411Z'
     - gamedig > request-promise > request-promise-core > lodash:
         patched: '2019-07-04T06:37:45.411Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2019-07-04T16:32:49.193Z'
+    - snyk > lodash:
+        patched: '2019-07-04T16:32:49.193Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-07-04T16:32:49.193Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2019-07-04T16:32:49.193Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2019-07-04T16:32:49.193Z'
+    - snyk > snyk-config > lodash:
+        patched: '2019-07-04T16:32:49.193Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2019-07-04T16:32:49.193Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-07-04T16:32:49.193Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-07-04T16:32:49.193Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-07-04T16:32:49.193Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2019-07-04T16:32:49.193Z'
