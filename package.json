@@ -9,7 +9,9 @@
     "build": "next build",
     "start": "nodemon start.js",
     "lint:ejs": "ejslint views/bootstrap/dashboard/GuildHomePage.ejs",
-    "gamedig": "gamedig --type csgo 216.52.148.47 --port 27015 --debug true --maxAttempts 4 --socketTimeout 10000"
+    "gamedig": "gamedig --type csgo 216.52.148.47 --port 27015 --debug true --maxAttempts 4 --socketTimeout 10000",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "engines": {
     "node": "9.x"
@@ -46,7 +48,8 @@
     "simple-youtube-api": "^5.1.1",
     "snekfetch": "^4.0.4",
     "socket.io": "^2.2.0",
-    "ytdl-core": "^0.28.3"
+    "ytdl-core": "^0.28.3",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "chalk": "^2.4.1",
@@ -58,5 +61,6 @@
     "moment-duration-format": "^2.2.2",
     "nodemon": "^1.18.9",
     "wait-for-localhost": "^2.0.1"
-  }
+  },
+  "snyk": true
 }
