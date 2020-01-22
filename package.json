@@ -49,7 +49,7 @@
     "snekfetch": "^4.0.4",
     "socket.io": "^2.2.0",
     "ytdl-core": "^0.28.3",
-    "snyk": "^1.192.0"
+    "snyk": "^1.214.0"
   },
   "devDependencies": {
     "chalk": "^2.4.1",
